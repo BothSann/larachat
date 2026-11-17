@@ -24,6 +24,9 @@ Slug: 2–5 lowercase words from the issue title, joined by `-`.
 
 ## Rules
 - Linear history: rebase on the base branch, never merge it in.
+- Merge feature, bugfix, and other working branches into `next` with **squash and merge** (PR title becomes the commit).
+- Merge `next` into `main` (and `release/*` into `main`) with **rebase and merge**, never squash, so `main` and `next` keep the same commits.
+- Merge commits are disabled. Branches delete themselves after merge.
 - Never commit to or force-push protected branches.
 - PRs need both gates green (`composer check`, `pnpm check`) for the apps they touch.
 - Versions use SemVer tags on `main`: `v0.1.0` = first deploy.
