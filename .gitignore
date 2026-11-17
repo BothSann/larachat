@@ -1,0 +1,11 @@
+# Each app has its own .gitignore too
+.DS_Store
+.idea/
+.vscode/
+.env
+.env.*
+!.env.example
+node_modules/
+
+# Lesson files stay local
+learn/
