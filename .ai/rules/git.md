@@ -21,7 +21,7 @@ Scopes:
 | `web` | `apps/web` |
 | `realtime` | Events, channels, Echo, Reverb (either app) |
 | `docs` | `docs/`, `README.md`, `.ai/rules/`, `CLAUDE.md` |
-| `infra` | `compose.yaml`, CI, tooling config |
+| `infra` | CI, tooling config, deploy files |
 
 Examples: `feat(api): add send message endpoint`, `feat(web): show typing indicator`.
 

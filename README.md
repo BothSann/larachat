@@ -11,8 +11,8 @@ It is also a **learning project**: the owner types every line of app code, and C
 | `apps/api` | Laravel (latest stable), Sanctum, Reverb, Scribe | JSON API at `/api/v1`, login, WebSocket server |
 | `apps/web` | TanStack Start, Router, Query, Tailwind v4, shadcn/ui, `@laravel/echo-react` | The website people use |
 | Database | PostgreSQL 18 | Users, chats, messages |
-| Redis 8 | | Cache, queues, sessions, Reverb scaling |
-| Mailpit | | Catches emails locally (verification, password reset) |
+| Cache/queue | Redis | Cache, queues, sessions, Reverb scaling |
+| Local mail | Yerd mail catcher (SMTP :2525) | Catches emails locally (verification, password reset) |
 
 Exact versions live in `apps/api/composer.lock` and `apps/web/pnpm-lock.yaml`. Check those files rather than trusting numbers in docs.
 
@@ -30,7 +30,6 @@ larachat/
 ├── .ai/rules/          Coding rules for humans and AI tools
 ├── .github/gitflow.md  Branch model
 ├── learn/              Lesson files (git-ignored)
-├── compose.yaml        Postgres, Redis, Mailpit (added in the scaffold lesson)
 └── CLAUDE.md
 ```
 
@@ -38,7 +37,7 @@ larachat/
 
 - PHP 8.5+ and Composer
 - Node (current LTS or newer) and pnpm
-- Docker (for Postgres, Redis, Mailpit)
+- Yerd running Postgres and Redis (it also catches mail)
 
 ## Setup
 
@@ -46,7 +45,8 @@ These steps work once the scaffold lesson (build step 1) is finished.
 
 ```bash
 git clone <repo-url> larachat && cd larachat
-docker compose up -d                         # Postgres, Redis, Mailpit
+yerd service start postgres && yerd service start redis
+yerd db create postgres larachat && yerd db create postgres larachat_test
 
 cd apps/api
 cp .env.example .env
@@ -76,8 +76,8 @@ cd apps/web && pnpm dev
 | Website | http://localhost:3000 |
 | API | http://localhost:8000/api/v1 |
 | API docs (Scribe) | http://localhost:8000/docs |
-| Reverb (WebSocket) | ws://localhost:8080 |
-| Mailpit inbox | http://localhost:8025 |
+| Reverb (WebSocket) | ws://localhost:8081 (8080 is taken by Yerd) |
+| Captured mail | `yerd mail list` |
 | Telescope (local only) | http://localhost:8000/telescope |
 
 Both apps run on `localhost`, so the Sanctum login cookie works for both. Cookies ignore ports.

@@ -19,7 +19,7 @@
                        │ broadcast
                        ▼
                  ┌───────────┐
-  Browser ◀═════▶│  Reverb   │  :8080  WebSocket (kept open)
+  Browser ◀═════▶│  Reverb   │  :8081  WebSocket (kept open)
    (Echo)        └───────────┘
 ```
 

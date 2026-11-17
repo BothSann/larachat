@@ -11,7 +11,7 @@ All JSON responses follow [.ai/rules/api.md](../.ai/rules/api.md). Lists use cur
 
 ## 1. Scaffold
 
-No endpoints. Laravel API (`apps/api`) with Pest, Sanctum (SPA mode), Postgres, Redis, Boost, Pint, Larastan, Scribe, Telescope. TanStack Start app (`apps/web`) with Tailwind, shadcn/ui, Biome, Vitest. `compose.yaml` with Postgres 18, Redis 8, Mailpit. `composer check` and `pnpm check` scripts.
+No endpoints. Laravel API (`apps/api`) with Pest, Sanctum (SPA mode), Postgres, Redis, Boost, Pint, Larastan, Scribe, Telescope. TanStack Start app (`apps/web`) with Tailwind, shadcn/ui, Biome, Vitest. Local Postgres + Redis from Yerd, mail to Yerd's catcher. `composer check` and `pnpm check` scripts.
 
 ## 2. Account
 

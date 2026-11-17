@@ -41,7 +41,7 @@ Precedence when rules clash: **these project rules → Laravel Boost guidelines 
 
 | Where | Command | Does |
 |---|---|---|
-| root | `docker compose up -d` | Postgres, Redis, Mailpit |
+| any | `yerd services` | Postgres + Redis status (Yerd); `yerd mail list` shows caught emails |
 | `apps/api` | `composer dev` | API server, queue worker, Reverb |
 | `apps/api` | `composer check` | Pint --test, Larastan, Pest |
 | `apps/api` | `php artisan scribe:generate` | Rebuild API docs + OpenAPI |
