@@ -28,6 +28,11 @@ No endpoints. Laravel API (`apps/api`) with Pest, Sanctum (SPA mode), Postgres, 
 | POST | `/api/v1/auth/forgot-password` | guest | Send reset link → 202 (same reply whether email exists or not) |
 | POST | `/api/v1/auth/reset-password` | guest | Set new password → 204 |
 
+Lessons (each API lesson is followed by its web lesson):
+1. Register, login, logout, `GET /me` (with the login 429), plus `/sanctum/csrf-cookie`.
+2. Email verification (resend + verify link) and `PATCH /me`.
+3. Forgot and reset password.
+
 ## 3. People and direct chats
 
 | Method | Path | Auth | Does |

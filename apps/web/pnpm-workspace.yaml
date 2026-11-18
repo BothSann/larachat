@@ -1,0 +1,6 @@
+allowBuilds:
+  esbuild: true
+  lightningcss: true
+packages:
+  - .
+minimumReleaseAge: 10080
