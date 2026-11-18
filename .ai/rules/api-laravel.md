@@ -1,4 +1,4 @@
-# Backend rules (apps/api)
+# API rules: Laravel (apps/api)
 
 Also follow Laravel Boost guidelines in `apps/api/CLAUDE.md` and the `laravel-api-practices` skill. This file wins on conflicts.
 
@@ -14,7 +14,7 @@ Also follow Laravel Boost guidelines in `apps/api/CLAUDE.md` and the `laravel-ap
 - **Form Requests** validate and expose `toDto()` returning a readonly class from `app/Data`.
 - **Policies** decide who may do what. Every route that touches a conversation goes through `ConversationPolicy`.
 - **Enums** for fixed sets: `ConversationType`, `ParticipantRole`. Cast them on models.
-- **Domain exceptions** in `app/Exceptions` render their own JSON with a stable `code` (see api.md).
+- **Domain exceptions** in `app/Exceptions` render their own JSON with a stable `code` (see api-endpoints.md).
 - Interfaces only when there is a real second implementation. Don't create them "just in case".
 
 ## PHP style

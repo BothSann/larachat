@@ -7,7 +7,7 @@ Every API path is under `http://localhost:8000`. "Auth" values:
 - `verified` — logged in with verified email
 - `participant` — verified and in that conversation (checked by a Policy)
 
-All JSON responses follow [.ai/rules/api.md](../.ai/rules/api.md). Lists use cursor pagination.
+All JSON responses follow [.ai/rules/api-endpoints.md](../.ai/rules/api-endpoints.md). Lists use cursor pagination.
 
 ## 1. Scaffold
 
