@@ -1,9 +1,11 @@
-# Realtime rules (Reverb + Echo)
+# API rules: realtime (Reverb)
+
+Browser side: [web-realtime.md](web-realtime.md).
 
 ## Principle
 The database is the truth. Reverb is only the fast way to say "something changed". A lost WebSocket message must never mean a lost chat message.
 
-## Events (apps/api)
+## Events
 - Live events implement `ShouldBroadcast` (queued). Never `ShouldBroadcastNow` in request code.
 - Dispatched **after the database commit**.
 - `broadcastAs()` returns a short dotted name: `message.sent`, `conversation.updated`, `conversation.removed`.
@@ -23,17 +25,9 @@ The database is the truth. Reverb is only the fast way to say "something changed
 - Never broadcast on public channels.
 - Broadcasting auth route uses the same Sanctum cookie session.
 
-## Whispers (typing)
-- Typing uses `whisper('typing', { userId })` on the presence channel. It never touches Laravel or the database.
-- Throttle sending to at most once every 2 s while typing.
-- Receiver hides the indicator after 3 s with no new whisper, or on `message.sent` from that user.
-- Reverb app must allow client events.
-
-## Frontend (Echo)
-- One Echo instance in `src/lib/echo.ts`, using `@laravel/echo-react` hooks (`useEcho`, `useEchoPresence`).
-- Subscribe in the chat route; leave the channel when the route unmounts.
-- On `message.sent`: if the ID is already in the cache, ignore; else insert in order by ID.
-- On reconnect and on tab becoming visible: invalidate the open chat's messages and the chat list.
+## Whispers
+- Typing whispers never touch Laravel or the database.
+- The Reverb app must allow client events.
 
 ## Scaling
 - `REVERB_SCALING_ENABLED=true` when there is more than one Reverb server (Redis pub/sub).

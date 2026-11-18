@@ -1,4 +1,4 @@
-# API rules
+# API rules: endpoints
 
 Based on the `laravel-api-practices` skill; project differences are marked **Override**.
 
