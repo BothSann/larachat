@@ -9,6 +9,8 @@ Overrides the default branch rules of the `/to-pr` skill.
 | `next` | Integration branch. All feature work lands here. | yes |
 | `release/<version>` | Freeze for testing, cut from `next`. Created once we deploy. | yes |
 
+`next` is the GitHub default branch, so new PRs target it by default.
+
 Until the first deploy, there are no `release/*` branches. `next` merges into `main` when a build-order step is complete.
 
 ## Working branches
