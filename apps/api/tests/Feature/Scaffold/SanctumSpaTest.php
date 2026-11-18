@@ -16,7 +16,7 @@ it('hands out an XSRF-TOKEN cookie', function (): void {
 });
 
 it('serves api routes under /api/v1', function (): void {
-    $this->getJson('/api/v1/user')
+    $this->getJson('/api/v1/me')
         ->assertUnauthorized()
         ->assertExactJson(['message' => 'Unauthenticated.']);
 });
@@ -25,16 +25,16 @@ it('returns the logged-in user from the api', function (): void {
     $user = User::factory()->create();
 
     $this->actingAs($user)
-        ->getJson('/api/v1/user')
+        ->getJson('/api/v1/me')
         ->assertOk()
-        ->assertJsonPath('id', $user->id);
+        ->assertJsonPath('data.id', $user->id);
 });
 
 it('lets the web app at localhost:3000 send cookies', function (): void {
     $this->withHeaders([
         'Origin' => 'http://localhost:3000',
         'Access-Control-Request-Method' => 'POST',
-    ])->options('/api/v1/user')
+    ])->options('/api/v1/me')
         ->assertNoContent()
         ->assertHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
         ->assertHeader('Access-Control-Allow-Credentials', 'true');
@@ -44,7 +44,7 @@ it('refuses other origins', function (): void {
     $response = $this->withHeaders([
         'Origin' => 'http://evil.test',
         'Access-Control-Request-Method' => 'POST',
-    ])->options('/api/v1/user');
+    ])->options('/api/v1/me');
 
     expect($response->headers->get('Access-Control-Allow-Origin'))
         ->not->toBe('http://evil.test');
