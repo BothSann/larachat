@@ -44,7 +44,7 @@ it('keeps the user logged in for the next request', function (): void {
     // Forget the user cached in memory, so the next request must find them through the session.
     $this->app['auth']->forgetGuards();
 
-    $this->getJson('/api/v1/user')->assertOk()->assertJsonPath('username', 'dara_01');
+    $this->getJson('/api/v1/me')->assertOk()->assertJsonPath('data.username', 'dara_01');
 });
 
 it('accepts the email in any letter case', function (): void {
