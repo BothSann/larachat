@@ -116,3 +116,6 @@ messages                   id ULID PK (client-made), conversation_id → convers
 7. Online status and typing
 
 Each step is a vertical slice: API lesson(s) → web lesson(s) → both checks green → `/to-pr` into `next`.
+
+## Before the first deploy
+- Restrict `/docs` and `/docs.openapi` (Scribe `laravel.middleware`, or skip the routes outside `local`). Today anyone can read the API map.
