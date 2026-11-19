@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import tailwindcss from "@tailwindcss/vite";
 import { devtools } from "@tanstack/devtools-vite";
 
@@ -9,6 +10,11 @@ import { defineConfig } from "vite";
 const config = defineConfig({
 	resolve: { tsconfigPaths: true },
 	plugins: [devtools(), tailwindcss(), tanstackStart(), viteReact()],
+	test: {
+		environment: "jsdom",
+		setupFiles: ["./src/test/setup.ts"],
+		env: { VITE_API_URL: "http://api.test" },
+	},
 });
 
 export default config;
