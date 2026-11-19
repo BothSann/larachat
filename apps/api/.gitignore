@@ -25,3 +25,8 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Scribe output (rebuilt by `composer docs`; only openapi.yaml is committed)
+/.scribe
+/public/vendor/scribe
+/resources/views/scribe
