@@ -7,6 +7,7 @@ namespace App\Http\Resources;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Knuckles\Scribe\Attributes\ResponseField;
 
 /** @mixin User */
 final class UserResource extends JsonResource
@@ -16,6 +17,9 @@ final class UserResource extends JsonResource
      *
      * @return array<string, mixed>
      */
+    #[ResponseField('id', 'string', 'ULID.')]
+    #[ResponseField('email_verified_at', 'string', 'ISO 8601 UTC. Null until the email is verified.', nullable: true)]
+    #[ResponseField('created_at', 'string', 'ISO 8601 UTC.')]
     public function toArray(Request $request): array
     {
         return [

@@ -1,0 +1,380 @@
+openapi: 3.0.3
+info:
+  title: 'larachat API'
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost:8000'
+tags:
+  -
+    name: Auth
+    description: 'Sign up, log in, log out. Call GET /sanctum/csrf-cookie before the first write.'
+  -
+    name: Account
+    description: 'The logged-in user.'
+components:
+  securitySchemes:
+    default:
+      type: apiKey
+      name: X-XSRF-TOKEN
+      in: header
+      description: 'Sanctum SPA cookie auth: call <code>GET /sanctum/csrf-cookie</code>, then <code>POST /api/v1/auth/login</code>. The browser then sends the session cookie, and every write sends the <code>XSRF-TOKEN</code> cookie value as the <code>X-XSRF-TOKEN</code> header.'
+security:
+  -
+    default: []
+paths:
+  /api/v1/auth/logout:
+    post:
+      summary: 'Log out'
+      operationId: logOut
+      description: 'End the session and rotate the CSRF token.'
+      parameters:
+        -
+          in: header
+          name: X-XSRF-TOKEN
+          description: ''
+          example: '{XSRF_TOKEN}'
+          schema:
+            type: string
+      responses:
+        204:
+          description: 'Logged out'
+          content:
+            application/json:
+              schema:
+                type: object
+                nullable: true
+        401:
+          description: 'Not logged in'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Auth
+  /api/v1/auth/register:
+    post:
+      summary: Register
+      operationId: register
+      description: 'Create an account, log it in, and send a verification email.'
+      parameters: []
+      responses:
+        201:
+          description: 'Account created and logged in'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 01m7rnq58e34xtrfdf5rf5pshq
+                    name: 'Mrs. Justina Gaylord'
+                    username: deltvi9__k
+                    email: theo.hauck@example.com
+                    email_verified_at: '2026-11-19T01:11:13.000000Z'
+                    created_at: '2026-11-19T01:11:13.000000Z'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: 01m7rnq58e34xtrfdf5rf5pshq
+                        description: ULID.
+                      name:
+                        type: string
+                        example: 'Mrs. Justina Gaylord'
+                      username:
+                        type: string
+                        example: deltvi9__k
+                      email:
+                        type: string
+                        example: theo.hauck@example.com
+                      email_verified_at:
+                        type: string
+                        example: '2026-11-19T01:11:13.000000Z'
+                        description: 'ISO 8601 UTC. Null until the email is verified.'
+                        nullable: true
+                      created_at:
+                        type: string
+                        example: '2026-11-19T01:11:13.000000Z'
+                        description: 'ISO 8601 UTC.'
+                    required:
+                      - id
+                      - email_verified_at
+                      - created_at
+        403:
+          description: 'Already logged in'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'This action is unauthorized.'
+                properties:
+                  message:
+                    type: string
+                    example: 'This action is unauthorized.'
+        422:
+          description: 'Validation failed'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'The username has already been taken.'
+                  errors:
+                    username:
+                      - 'The username has already been taken.'
+                properties:
+                  message:
+                    type: string
+                    example: 'The username has already been taken.'
+                  errors:
+                    type: object
+                    properties:
+                      username:
+                        type: array
+                        example:
+                          - 'The username has already been taken.'
+                        items:
+                          type: string
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: b
+                username:
+                  type: string
+                  description: 'Must match the regex /^[a-z0-9_]{3,30}$/.'
+                  example: 0cljska6z34deltvi
+                email:
+                  type: string
+                  description: 'Must be a valid email address. Must not be greater than 255 characters.'
+                  example: antonio24@example.net
+                password:
+                  type: string
+                  description: ''
+                  example: '|]|{+-'
+                password_confirmation:
+                  type: string
+                  description: 'Must match password.'
+                  example: correct-horse-battery
+              required:
+                - name
+                - username
+                - email
+                - password
+                - password_confirmation
+      security: []
+  /api/v1/auth/login:
+    post:
+      summary: 'Log in'
+      operationId: logIn
+      description: 'Start a session. Limited to 5 tries a minute per email and IP.'
+      parameters: []
+      responses:
+        200:
+          description: 'Logged in'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 01m7rnq58x6x4278t2418s96v1
+                    name: 'Mrs. Justina Gaylord'
+                    username: _folydlym
+                    email: carey67@example.com
+                    email_verified_at: '2026-11-19T01:11:13.000000Z'
+                    created_at: '2026-11-19T01:11:13.000000Z'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: 01m7rnq58x6x4278t2418s96v1
+                        description: ULID.
+                      name:
+                        type: string
+                        example: 'Mrs. Justina Gaylord'
+                      username:
+                        type: string
+                        example: _folydlym
+                      email:
+                        type: string
+                        example: carey67@example.com
+                      email_verified_at:
+                        type: string
+                        example: '2026-11-19T01:11:13.000000Z'
+                        description: 'ISO 8601 UTC. Null until the email is verified.'
+                        nullable: true
+                      created_at:
+                        type: string
+                        example: '2026-11-19T01:11:13.000000Z'
+                        description: 'ISO 8601 UTC.'
+                    required:
+                      - id
+                      - email_verified_at
+                      - created_at
+        403:
+          description: 'Already logged in'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'This action is unauthorized.'
+                properties:
+                  message:
+                    type: string
+                    example: 'This action is unauthorized.'
+        422:
+          description: 'Wrong email or password'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'These credentials do not match our records.'
+                  errors:
+                    email:
+                      - 'These credentials do not match our records.'
+                properties:
+                  message:
+                    type: string
+                    example: 'These credentials do not match our records.'
+                  errors:
+                    type: object
+                    properties:
+                      email:
+                        type: array
+                        example:
+                          - 'These credentials do not match our records.'
+                        items:
+                          type: string
+        429:
+          description: 'Too many tries'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Too Many Attempts.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Too Many Attempts.'
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: gbailey@example.net
+                password:
+                  type: string
+                  description: ''
+                  example: '|]|{+-'
+                remember:
+                  type: boolean
+                  description: ''
+                  example: false
+              required:
+                - email
+                - password
+      security: []
+  /api/v1/me:
+    get:
+      summary: 'Current user'
+      operationId: currentUser
+      description: 'Who is logged in.'
+      parameters:
+        -
+          in: header
+          name: X-XSRF-TOKEN
+          description: ''
+          example: '{XSRF_TOKEN}'
+          schema:
+            type: string
+      responses:
+        200:
+          description: 'The logged-in user'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 01m7rnq56t3vvrxwn83841x3bm
+                    name: 'Morgan Hirthe'
+                    username: folydlymqh9m
+                    email: sleffler@example.org
+                    email_verified_at: '2026-11-19T01:11:13.000000Z'
+                    created_at: '2026-11-19T01:11:13.000000Z'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: 01m7rnq56t3vvrxwn83841x3bm
+                        description: ULID.
+                      name:
+                        type: string
+                        example: 'Morgan Hirthe'
+                      username:
+                        type: string
+                        example: folydlymqh9m
+                      email:
+                        type: string
+                        example: sleffler@example.org
+                      email_verified_at:
+                        type: string
+                        example: '2026-11-19T01:11:13.000000Z'
+                        description: 'ISO 8601 UTC. Null until the email is verified.'
+                        nullable: true
+                      created_at:
+                        type: string
+                        example: '2026-11-19T01:11:13.000000Z'
+                        description: 'ISO 8601 UTC.'
+                    required:
+                      - id
+                      - email_verified_at
+                      - created_at
+        401:
+          description: 'Not logged in'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Account
