@@ -7,7 +7,7 @@
 
 ## Forms
 - TanStack Form + Zod. The schema lives in the feature's `schemas.ts`.
-- Zod does light checks only: required, email shape, password length ≥ 8. Laravel stays the source of truth (unique email, wrong password).
+- Zod does light checks only: required, email shape, password length ≥ 8, password confirmation matches. Laravel stays the source of truth (unique email, username format, wrong password).
 - A 422 `ApiError` puts each `errors[field][0]` next to the matching field. A message with no field shows above the form.
 - Disable the submit button while the mutation is pending.
 

@@ -7,6 +7,7 @@ import { ApiError } from "#/lib/api-error";
 import { useLogin } from "../mutations";
 import { safeRedirect } from "../redirect";
 import { loginSchema } from "../schemas";
+import { TextField } from "./text-field";
 
 type LoginFormProps = {
 	redirect: string | undefined;
@@ -55,32 +56,20 @@ export function LoginForm({ redirect }: LoginFormProps) {
 			)}
 
 			<form.Field name="email">
-				{(field) => {
-					const error =
-						field.state.meta.errors[0]?.message ?? fieldErrors?.email?.[0];
-
-					return (
-						<div className="grid gap-2">
-							<Label htmlFor={field.name}>Email</Label>
-							<Input
-								id={field.name}
-								name={field.name}
-								type="email"
-								autoComplete="email"
-								value={field.state.value}
-								onBlur={field.handleBlur}
-								onChange={(event) => field.handleChange(event.target.value)}
-								aria-invalid={error ? true : undefined}
-								aria-describedby={error ? "email-error" : undefined}
-							/>
-							{error && (
-								<p id="email-error" className="text-destructive text-sm">
-									{error}
-								</p>
-							)}
-						</div>
-					);
-				}}
+				{(field) => (
+					<TextField
+						name={field.name}
+						label="Email"
+						type="email"
+						autoComplete="email"
+						value={field.state.value}
+						error={
+							field.state.meta.errors[0]?.message ?? fieldErrors?.email?.[0]
+						}
+						onChange={field.handleChange}
+						onBlur={field.handleBlur}
+					/>
+				)}
 			</form.Field>
 
 			<form.Field name="password">
