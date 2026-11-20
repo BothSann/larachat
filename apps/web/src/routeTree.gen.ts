@@ -14,6 +14,7 @@ import { Route as AppRouteRouteImport } from './routes/_app/route'
 import { Route as GuestRouteRouteImport } from './routes/_guest/route'
 import { Route as AppChatsRouteImport } from './routes/_app/chats'
 import { Route as GuestLoginRouteImport } from './routes/_guest/login'
+import { Route as GuestRegisterRouteImport } from './routes/_guest/register'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -38,16 +39,23 @@ const GuestLoginRoute = GuestLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => GuestRouteRoute,
 } as any)
+const GuestRegisterRoute = GuestRegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => GuestRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/chats': typeof AppChatsRoute
   '/login': typeof GuestLoginRoute
+  '/register': typeof GuestRegisterRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/chats': typeof AppChatsRoute
   '/login': typeof GuestLoginRoute
+  '/register': typeof GuestRegisterRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -56,13 +64,21 @@ export interface FileRoutesById {
   '/_guest': typeof GuestRouteRouteWithChildren
   '/_app/chats': typeof AppChatsRoute
   '/_guest/login': typeof GuestLoginRoute
+  '/_guest/register': typeof GuestRegisterRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/chats' | '/login'
+  fullPaths: '/' | '/chats' | '/login' | '/register'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/chats' | '/login'
-  id: '__root__' | '/' | '/_app' | '/_guest' | '/_app/chats' | '/_guest/login'
+  to: '/' | '/chats' | '/login' | '/register'
+  id:
+    | '__root__'
+    | '/'
+    | '/_app'
+    | '/_guest'
+    | '/_app/chats'
+    | '/_guest/login'
+    | '/_guest/register'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -108,6 +124,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuestLoginRouteImport
       parentRoute: typeof GuestRouteRoute
     }
+    '/_guest/register': {
+      id: '/_guest/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof GuestRegisterRouteImport
+      parentRoute: typeof GuestRouteRoute
+    }
   }
 }
 
@@ -125,10 +148,12 @@ const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
 
 interface GuestRouteRouteChildren {
   GuestLoginRoute: typeof GuestLoginRoute
+  GuestRegisterRoute: typeof GuestRegisterRoute
 }
 
 const GuestRouteRouteChildren: GuestRouteRouteChildren = {
   GuestLoginRoute: GuestLoginRoute,
+  GuestRegisterRoute: GuestRegisterRoute,
 }
 
 const GuestRouteRouteWithChildren = GuestRouteRoute._addFileChildren(
