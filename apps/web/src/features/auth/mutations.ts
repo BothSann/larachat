@@ -55,3 +55,29 @@ export function useLogout() {
 		},
 	});
 }
+
+export function useResendVerification() {
+	const queryClient = useQueryClient();
+
+	return useMutation({
+		mutationFn: async () => {
+			try {
+				await api.POST("/api/v1/auth/email/verification-notification");
+
+				return "sent" as const;
+			} catch (error) {
+				if (error instanceof ApiError && error.code === "already_verified") {
+					return "already_verified" as const;
+				}
+				throw error;
+			}
+		},
+		onSuccess: async (result) => {
+			if (result === "already_verified") {
+				await queryClient.invalidateQueries({
+					queryKey: meQuery.queryKey,
+				});
+			}
+		},
+	});
+}
