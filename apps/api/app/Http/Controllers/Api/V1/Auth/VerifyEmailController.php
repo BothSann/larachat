@@ -24,7 +24,7 @@ final class VerifyEmailController extends Controller
     #[UrlParam('hash', 'string', 'sha1 of the user\'s email.', example: 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3')]
     #[QueryParam('expires', 'integer', 'Unix time the link stops working (60 minutes after sending).', example: 1767225600)]
     #[QueryParam('signature', 'string', 'HMAC of the URL, made by the API.', example: 'b1946ac92492d2347c6235b4d2611184')]
-    #[ExampleResponse(null, 302, 'Verified (or already verified). Location: FRONTEND_URL/?verified=1')]
+    #[ExampleResponse(null, 302, 'Verified (or already verified). Location: FRONTEND_URL/chats?verified=1')]
     #[ExampleResponse(['message' => 'Invalid signature.'], 403, 'Signature changed, missing, or expired; or hash is not this email')]
     #[ExampleResponse(['message' => 'No query results for model [App\\Models\\User].'], 404, 'Unknown user')]
     #[ExampleResponse(['message' => 'Too Many Attempts.'], 429, 'More than 6 tries in a minute')]
@@ -34,6 +34,6 @@ final class VerifyEmailController extends Controller
 
         $verifyEmail->handle($user, $hash);
 
-        return redirect()->away(config()->string('app.frontend_url').'/?verified=1');
+        return redirect()->away(config()->string('app.frontend_url').'/chats?verified=1');
     }
 }
