@@ -1,4 +1,5 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { VerifyBanner } from "#/features/auth/components/verify-banner";
 import { meQuery } from "#/features/auth/queries";
 import { ApiError } from "#/lib/api-error";
 
@@ -19,4 +20,14 @@ export const Route = createFileRoute("/_app")({
 			throw error;
 		}
 	},
+	component: AppLayout,
 });
+
+function AppLayout() {
+	return (
+		<>
+			<VerifyBanner />
+			<Outlet />
+		</>
+	);
+}

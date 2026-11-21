@@ -22,5 +22,9 @@ export const registerSchema = z
 		path: ["password_confirmation"],
 	});
 
+export const chatsSearchSchema = z.object({
+	verified: z.literal(1).optional().catch(undefined),
+});
+
 export type LoginInput = z.infer<typeof loginSchema>;
 export type RegisterInput = z.infer<typeof registerSchema>;

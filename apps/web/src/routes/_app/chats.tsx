@@ -3,8 +3,10 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Button } from "#/components/ui/button";
 import { useLogout } from "#/features/auth/mutations";
 import { meQuery } from "#/features/auth/queries";
+import { chatsSearchSchema } from "#/features/auth/schemas";
 
 export const Route = createFileRoute("/_app/chats")({
+	validateSearch: chatsSearchSchema,
 	component: Chats,
 });
 
@@ -12,9 +14,24 @@ function Chats() {
 	const { data: user } = useSuspenseQuery(meQuery);
 	const logout = useLogout();
 	const navigate = useNavigate();
+	const { verified } = Route.useSearch();
 
 	return (
 		<main className="p-8">
+			{verified && user.email_verified_at && (
+				<div role="status" className="mb-4 flex items-center gap-3">
+					<p>Your email is verified.</p>
+					<Button
+						variant="outline"
+						size="sm"
+						onClick={() =>
+							navigate({ to: "/chats", search: {}, replace: true })
+						}
+					>
+						Dismiss
+					</Button>
+				</div>
+			)}
 			<p>Signed in as {user.name}</p>
 
 			<div className="flex items-center gap-3">
