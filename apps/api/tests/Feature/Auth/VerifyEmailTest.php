@@ -51,7 +51,7 @@ it('puts a link in that email that verifies it', function (): void {
         return true;
     });
 
-    $this->get($url)->assertRedirect('http://localhost:3000/?verified=1');
+    $this->get($url)->assertRedirect('http://localhost:3000/chats?verified=1');
 
     expect($user->fresh()->hasVerifiedEmail())->toBeTrue();
 });
@@ -61,7 +61,7 @@ it('verifies the email and redirects to the web app', function (): void {
     $user = User::factory()->unverified()->create();
 
     $this->get(verificationUrl($user))
-        ->assertRedirect('http://localhost:3000/?verified=1');
+        ->assertRedirect('http://localhost:3000/chats?verified=1');
 
     expect($user->fresh()->hasVerifiedEmail())->toBeTrue();
     Event::assertDispatchedTimes(Verified::class, 1);
@@ -72,12 +72,12 @@ it('redirects the same way when already verified, without touching the timestamp
     $user = User::factory()->unverified()->create();
     $url = verificationUrl($user);
 
-    $this->get($url)->assertRedirect('http://localhost:3000/?verified=1');
+    $this->get($url)->assertRedirect('http://localhost:3000/chats?verified=1');
     $verifiedAt = $user->fresh()->email_verified_at;
 
     $this->travel(5)->minutes();
 
-    $this->get($url)->assertRedirect('http://localhost:3000/?verified=1');
+    $this->get($url)->assertRedirect('http://localhost:3000/chats?verified=1');
 
     expect($user->fresh()->email_verified_at->equalTo($verifiedAt))->toBeTrue();
     Event::assertDispatchedTimes(Verified::class, 1);

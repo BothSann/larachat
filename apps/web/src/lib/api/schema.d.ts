@@ -289,7 +289,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m7y3fd3kyhphxc07jee53vjn
+                             * @example 01m7z1311fqpxr9kaq9xvj487y
                              */
                             id: string;
                             /** @example Mrs. Justina Gaylord */
@@ -300,12 +300,12 @@ export interface operations {
                             email?: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-21T03:47:51.000000Z
+                             * @example 2026-11-21T12:25:23.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-21T03:47:51.000000Z
+                             * @example 2026-11-21T12:25:23.000000Z
                              */
                             created_at: string;
                         };
@@ -379,7 +379,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m7y3fd3wsfa40mevnqttk5n3
+                             * @example 01m7z1311vav5fha72xe840es7
                              */
                             id: string;
                             /** @example Mrs. Justina Gaylord */
@@ -390,12 +390,12 @@ export interface operations {
                             email?: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-21T03:47:51.000000Z
+                             * @example 2026-11-21T12:25:23.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-21T03:47:51.000000Z
+                             * @example 2026-11-21T12:25:23.000000Z
                              */
                             created_at: string;
                         };
@@ -479,7 +479,7 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description Verified (or already verified). Location: FRONTEND_URL/?verified=1 */
+            /** @description Verified (or already verified). Location: FRONTEND_URL/chats?verified=1 */
             302: {
                 headers: {
                     [name: string]: unknown;
@@ -548,7 +548,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m7y3fd2k24mc5tex941tz18e
+                             * @example 01m7z1310s9190xm1y1zx79nnh
                              */
                             id: string;
                             /** @example Morgan Hirthe */
@@ -559,12 +559,12 @@ export interface operations {
                             email?: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-21T03:47:51.000000Z
+                             * @example 2026-11-21T12:25:22.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-21T03:47:51.000000Z
+                             * @example 2026-11-21T12:25:23.000000Z
                              */
                             created_at: string;
                         };

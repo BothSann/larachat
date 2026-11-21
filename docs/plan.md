@@ -24,7 +24,7 @@ No endpoints. Laravel API (`apps/api`) with Pest, Sanctum (SPA mode), Postgres, 
 | GET | `/api/v1/me` | user | Current user → 200; 401 when logged out |
 | PATCH | `/api/v1/me` | user | Change name / username → 200 |
 | POST | `/api/v1/auth/email/verification-notification` | user | Resend email → 202; 409 `already_verified`; 429 after 6/min per user |
-| GET | `/api/v1/auth/email/verify/{id}/{hash}` | public (signed URL) | Verify → 302 to `FRONTEND_URL/?verified=1` (also when already verified) |
+| GET | `/api/v1/auth/email/verify/{id}/{hash}` | public (signed URL) | Verify → 302 to `FRONTEND_URL/chats?verified=1` (also when already verified) |
 | POST | `/api/v1/auth/forgot-password` | guest | Send reset link → 202 (same reply whether email exists or not) |
 | POST | `/api/v1/auth/reset-password` | guest | Set new password → 204 |
 

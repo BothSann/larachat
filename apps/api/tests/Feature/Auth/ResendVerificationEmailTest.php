@@ -40,7 +40,7 @@ it('puts a working link in the resent email', function (): void {
         return true;
     });
 
-    $this->get($url)->assertRedirect('http://localhost:3000/?verified=1');
+    $this->get($url)->assertRedirect('http://localhost:3000/chats?verified=1');
 
     expect($user->fresh()->hasVerifiedEmail())->toBeTrue();
 });

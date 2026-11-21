@@ -137,19 +137,19 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m7y3fd3kyhphxc07jee53vjn
+                    id: 01m7z1avnppgz3xgwdjhkb1zvz
                     name: 'Mrs. Justina Gaylord'
                     username: deltvi9__k
                     email: theo.hauck@example.com
-                    email_verified_at: '2026-11-21T03:47:51.000000Z'
-                    created_at: '2026-11-21T03:47:51.000000Z'
+                    email_verified_at: '2026-11-21T12:29:39.000000Z'
+                    created_at: '2026-11-21T12:29:39.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: string
-                        example: 01m7y3fd3kyhphxc07jee53vjn
+                        example: 01m7z1avnppgz3xgwdjhkb1zvz
                         description: ULID.
                       name:
                         type: string
@@ -162,12 +162,12 @@ paths:
                         example: theo.hauck@example.com
                       email_verified_at:
                         type: string
-                        example: '2026-11-21T03:47:51.000000Z'
+                        example: '2026-11-21T12:29:39.000000Z'
                         description: 'ISO 8601 UTC. Null until the email is verified.'
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-21T03:47:51.000000Z'
+                        example: '2026-11-21T12:29:39.000000Z'
                         description: 'ISO 8601 UTC.'
                     required:
                       - id
@@ -260,19 +260,19 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m7y3fd3wsfa40mevnqttk5n3
+                    id: 01m7z1avp2k9jdfkapj9e9h97b
                     name: 'Mrs. Justina Gaylord'
                     username: _folydlym
                     email: carey67@example.com
-                    email_verified_at: '2026-11-21T03:47:51.000000Z'
-                    created_at: '2026-11-21T03:47:51.000000Z'
+                    email_verified_at: '2026-11-21T12:29:39.000000Z'
+                    created_at: '2026-11-21T12:29:39.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: string
-                        example: 01m7y3fd3wsfa40mevnqttk5n3
+                        example: 01m7z1avp2k9jdfkapj9e9h97b
                         description: ULID.
                       name:
                         type: string
@@ -285,12 +285,12 @@ paths:
                         example: carey67@example.com
                       email_verified_at:
                         type: string
-                        example: '2026-11-21T03:47:51.000000Z'
+                        example: '2026-11-21T12:29:39.000000Z'
                         description: 'ISO 8601 UTC. Null until the email is verified.'
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-21T03:47:51.000000Z'
+                        example: '2026-11-21T12:29:39.000000Z'
                         description: 'ISO 8601 UTC.'
                     required:
                       - id
@@ -364,7 +364,7 @@ paths:
                 remember:
                   type: boolean
                   description: ''
-                  example: true
+                  example: false
               required:
                 - email
                 - password
@@ -397,7 +397,7 @@ paths:
             example: b1946ac92492d2347c6235b4d2611184
       responses:
         302:
-          description: 'Verified (or already verified). Location: FRONTEND_URL/?verified=1'
+          description: 'Verified (or already verified). Location: FRONTEND_URL/chats?verified=1'
           content:
             application/json:
               schema:
@@ -481,19 +481,19 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m7y3fd2k24mc5tex941tz18e
+                    id: 01m7z1avmmrg3gbjadhgdj3m07
                     name: 'Morgan Hirthe'
                     username: folydlymqh9m
                     email: sleffler@example.org
-                    email_verified_at: '2026-11-21T03:47:51.000000Z'
-                    created_at: '2026-11-21T03:47:51.000000Z'
+                    email_verified_at: '2026-11-21T12:29:39.000000Z'
+                    created_at: '2026-11-21T12:29:39.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: string
-                        example: 01m7y3fd2k24mc5tex941tz18e
+                        example: 01m7z1avmmrg3gbjadhgdj3m07
                         description: ULID.
                       name:
                         type: string
@@ -506,12 +506,12 @@ paths:
                         example: sleffler@example.org
                       email_verified_at:
                         type: string
-                        example: '2026-11-21T03:47:51.000000Z'
+                        example: '2026-11-21T12:29:39.000000Z'
                         description: 'ISO 8601 UTC. Null until the email is verified.'
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-21T03:47:51.000000Z'
+                        example: '2026-11-21T12:29:39.000000Z'
                         description: 'ISO 8601 UTC.'
                     required:
                       - id
