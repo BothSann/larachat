@@ -59,6 +59,69 @@ paths:
                     example: Unauthenticated.
       tags:
         - Auth
+  /api/v1/auth/email/verification-notification:
+    post:
+      summary: 'Resend verification email'
+      operationId: resendVerificationEmail
+      description: 'Send the verification email again, with a fresh 60-minute link.'
+      parameters:
+        -
+          in: header
+          name: X-XSRF-TOKEN
+          description: ''
+          example: '{XSRF_TOKEN}'
+          schema:
+            type: string
+      responses:
+        202:
+          description: 'Email sent'
+          content:
+            application/json:
+              schema:
+                type: object
+                nullable: true
+        401:
+          description: 'Not logged in'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+        409:
+          description: 'Already verified; nothing sent'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Your email is already verified.'
+                  code: already_verified
+                properties:
+                  message:
+                    type: string
+                    example: 'Your email is already verified.'
+                  code:
+                    type: string
+                    example: already_verified
+        429:
+          description: 'More than 6 tries in a minute'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Too Many Attempts.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Too Many Attempts.'
+      tags:
+        - Auth
   /api/v1/auth/register:
     post:
       summary: Register
@@ -74,19 +137,19 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m7y0k88hssfb6bev4mgezh2j
+                    id: 01m7y3fd3kyhphxc07jee53vjn
                     name: 'Mrs. Justina Gaylord'
                     username: deltvi9__k
                     email: theo.hauck@example.com
-                    email_verified_at: '2026-11-21T02:57:31.000000Z'
-                    created_at: '2026-11-21T02:57:31.000000Z'
+                    email_verified_at: '2026-11-21T03:47:51.000000Z'
+                    created_at: '2026-11-21T03:47:51.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: string
-                        example: 01m7y0k88hssfb6bev4mgezh2j
+                        example: 01m7y3fd3kyhphxc07jee53vjn
                         description: ULID.
                       name:
                         type: string
@@ -99,12 +162,12 @@ paths:
                         example: theo.hauck@example.com
                       email_verified_at:
                         type: string
-                        example: '2026-11-21T02:57:31.000000Z'
+                        example: '2026-11-21T03:47:51.000000Z'
                         description: 'ISO 8601 UTC. Null until the email is verified.'
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-21T02:57:31.000000Z'
+                        example: '2026-11-21T03:47:51.000000Z'
                         description: 'ISO 8601 UTC.'
                     required:
                       - id
@@ -197,19 +260,19 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m7y0k890cbd25m3gcbd4ax2j
+                    id: 01m7y3fd3wsfa40mevnqttk5n3
                     name: 'Mrs. Justina Gaylord'
                     username: _folydlym
                     email: carey67@example.com
-                    email_verified_at: '2026-11-21T02:57:31.000000Z'
-                    created_at: '2026-11-21T02:57:31.000000Z'
+                    email_verified_at: '2026-11-21T03:47:51.000000Z'
+                    created_at: '2026-11-21T03:47:51.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: string
-                        example: 01m7y0k890cbd25m3gcbd4ax2j
+                        example: 01m7y3fd3wsfa40mevnqttk5n3
                         description: ULID.
                       name:
                         type: string
@@ -222,12 +285,12 @@ paths:
                         example: carey67@example.com
                       email_verified_at:
                         type: string
-                        example: '2026-11-21T02:57:31.000000Z'
+                        example: '2026-11-21T03:47:51.000000Z'
                         description: 'ISO 8601 UTC. Null until the email is verified.'
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-21T02:57:31.000000Z'
+                        example: '2026-11-21T03:47:51.000000Z'
                         description: 'ISO 8601 UTC.'
                     required:
                       - id
@@ -418,19 +481,19 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m7y0k87rhqr1s75z5vsrvk9g
+                    id: 01m7y3fd2k24mc5tex941tz18e
                     name: 'Morgan Hirthe'
                     username: folydlymqh9m
                     email: sleffler@example.org
-                    email_verified_at: '2026-11-21T02:57:31.000000Z'
-                    created_at: '2026-11-21T02:57:31.000000Z'
+                    email_verified_at: '2026-11-21T03:47:51.000000Z'
+                    created_at: '2026-11-21T03:47:51.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: string
-                        example: 01m7y0k87rhqr1s75z5vsrvk9g
+                        example: 01m7y3fd2k24mc5tex941tz18e
                         description: ULID.
                       name:
                         type: string
@@ -443,12 +506,12 @@ paths:
                         example: sleffler@example.org
                       email_verified_at:
                         type: string
-                        example: '2026-11-21T02:57:31.000000Z'
+                        example: '2026-11-21T03:47:51.000000Z'
                         description: 'ISO 8601 UTC. Null until the email is verified.'
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-21T02:57:31.000000Z'
+                        example: '2026-11-21T03:47:51.000000Z'
                         description: 'ISO 8601 UTC.'
                     required:
                       - id

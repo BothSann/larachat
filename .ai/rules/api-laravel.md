@@ -49,6 +49,7 @@ Also follow Laravel Boost guidelines in `apps/api/CLAUDE.md` and the `laravel-ap
 | Name | Limit |
 |---|---|
 | `login` | 5/min per email + IP |
+| `verification-notification` | 6/min per user |
 | `messages` | 30/min per user |
 | `search` | 60/min per user |
 | `api` | 120/min per user/IP |

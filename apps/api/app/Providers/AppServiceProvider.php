@@ -26,5 +26,8 @@ class AppServiceProvider extends ServiceProvider
     {
         RateLimiter::for('login', fn (Request $request): Limit => Limit::perMinute(5)
             ->by($request->string('email')->trim()->lower().'|'.$request->ip()));
+
+        RateLimiter::for('verification-notification', fn (Request $request): Limit => Limit::perMinute(6)
+            ->by($request->user()?->id ?: $request->ip()));
     }
 }
