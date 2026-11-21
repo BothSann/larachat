@@ -34,6 +34,8 @@ it('documents every api/v1 route and nothing else', function (): void {
 
     $documented = collect(specPaths())
         ->flatMap(fn (array $operations, string $path): array => collect(array_keys($operations))
+            // A path can also hold shared `parameters`; only HTTP methods are operations.
+            ->intersect(['get', 'post', 'put', 'patch', 'delete'])
             ->map(fn (string $method): string => $method.' '.$path)
             ->all())
         ->sort()
@@ -50,6 +52,7 @@ it('lists every status code each endpoint can answer', function (string $method,
     'login' => ['post', '/api/v1/auth/login', [200, 403, 422, 429]],
     'logout' => ['post', '/api/v1/auth/logout', [204, 401]],
     'me' => ['get', '/api/v1/me', [200, 401]],
+    'verify email' => ['get', '/api/v1/auth/email/verify/{id}/{hash}', [302, 403, 404, 429]],
 ]);
 
 it('marks only the auth:sanctum routes as authenticated', function (string $method, string $path, bool $authenticated): void {
@@ -61,6 +64,7 @@ it('marks only the auth:sanctum routes as authenticated', function (string $meth
     'login' => ['post', '/api/v1/auth/login', false],
     'logout' => ['post', '/api/v1/auth/logout', true],
     'me' => ['get', '/api/v1/me', true],
+    'verify email' => ['get', '/api/v1/auth/email/verify/{id}/{hash}', false],
 ]);
 
 it('describes the user with every UserResource key', function (string $method, string $path, int $status): void {
