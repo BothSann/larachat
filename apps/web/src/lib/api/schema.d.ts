@@ -24,6 +24,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/auth/email/verification-notification": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Resend verification email
+         * @description Send the verification email again, with a fresh 60-minute link.
+         */
+        post: operations["resendVerificationEmail"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/auth/register": {
         parameters: {
             query?: never;
@@ -58,6 +78,37 @@ export interface paths {
          * @description Start a session. Limited to 5 tries a minute per email and IP.
          */
         post: operations["logIn"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/email/verify/{id}/{hash}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The user ID (ULID).
+                 * @example 01JD3F7K2Q8M4N5P6R7S8T9V0W
+                 */
+                id: string;
+                /**
+                 * @description sha1 of the user's email.
+                 * @example a94a8fe5ccb19ba61c4c0873d391e987982fbbd3
+                 */
+                hash: string;
+            };
+            cookie?: never;
+        };
+        /**
+         * Verify email
+         * @description The link from the verification email. Opened in a browser, so it redirects to the web app instead of returning JSON. Works logged out: the signature proves the link came from us.
+         */
+        get: operations["verifyEmail"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -131,6 +182,67 @@ export interface operations {
             };
         };
     };
+    resendVerificationEmail: {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @example {XSRF_TOKEN} */
+                "X-XSRF-TOKEN"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Email sent */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never> | null;
+                };
+            };
+            /** @description Not logged in */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @example Unauthenticated. */
+                        message?: string;
+                    };
+                };
+            };
+            /** @description Already verified; nothing sent */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @example Your email is already verified. */
+                        message?: string;
+                        /** @example already_verified */
+                        code?: string;
+                    };
+                };
+            };
+            /** @description More than 6 tries in a minute */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @example Too Many Attempts. */
+                        message?: string;
+                    };
+                };
+            };
+        };
+    };
     register: {
         parameters: {
             query?: never;
@@ -177,7 +289,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m7rnq58e34xtrfdf5rf5pshq
+                             * @example 01m7y3fd3kyhphxc07jee53vjn
                              */
                             id: string;
                             /** @example Mrs. Justina Gaylord */
@@ -188,12 +300,12 @@ export interface operations {
                             email?: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-19T01:11:13.000000Z
+                             * @example 2026-11-21T03:47:51.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-19T01:11:13.000000Z
+                             * @example 2026-11-21T03:47:51.000000Z
                              */
                             created_at: string;
                         };
@@ -251,7 +363,7 @@ export interface operations {
                     email: string;
                     /** @example |]|{+- */
                     password: string;
-                    /** @example false */
+                    /** @example true */
                     remember?: boolean;
                 };
             };
@@ -267,7 +379,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m7rnq58x6x4278t2418s96v1
+                             * @example 01m7y3fd3wsfa40mevnqttk5n3
                              */
                             id: string;
                             /** @example Mrs. Justina Gaylord */
@@ -278,12 +390,12 @@ export interface operations {
                             email?: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-19T01:11:13.000000Z
+                             * @example 2026-11-21T03:47:51.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-19T01:11:13.000000Z
+                             * @example 2026-11-21T03:47:51.000000Z
                              */
                             created_at: string;
                         };
@@ -336,6 +448,84 @@ export interface operations {
             };
         };
     };
+    verifyEmail: {
+        parameters: {
+            query: {
+                /**
+                 * @description Unix time the link stops working (60 minutes after sending).
+                 * @example 1767225600
+                 */
+                expires: number;
+                /**
+                 * @description HMAC of the URL, made by the API.
+                 * @example b1946ac92492d2347c6235b4d2611184
+                 */
+                signature: string;
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description The user ID (ULID).
+                 * @example 01JD3F7K2Q8M4N5P6R7S8T9V0W
+                 */
+                id: string;
+                /**
+                 * @description sha1 of the user's email.
+                 * @example a94a8fe5ccb19ba61c4c0873d391e987982fbbd3
+                 */
+                hash: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Verified (or already verified). Location: FRONTEND_URL/?verified=1 */
+            302: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never> | null;
+                };
+            };
+            /** @description Signature changed, missing, or expired; or hash is not this email */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @example Invalid signature. */
+                        message?: string;
+                    };
+                };
+            };
+            /** @description Unknown user */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @example No query results for model [App\Models\User]. */
+                        message?: string;
+                    };
+                };
+            };
+            /** @description More than 6 tries in a minute */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @example Too Many Attempts. */
+                        message?: string;
+                    };
+                };
+            };
+        };
+    };
     currentUser: {
         parameters: {
             query?: never;
@@ -358,7 +548,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m7rnq56t3vvrxwn83841x3bm
+                             * @example 01m7y3fd2k24mc5tex941tz18e
                              */
                             id: string;
                             /** @example Morgan Hirthe */
@@ -369,12 +559,12 @@ export interface operations {
                             email?: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-19T01:11:13.000000Z
+                             * @example 2026-11-21T03:47:51.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-19T01:11:13.000000Z
+                             * @example 2026-11-21T03:47:51.000000Z
                              */
                             created_at: string;
                         };
