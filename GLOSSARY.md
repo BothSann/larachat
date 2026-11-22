@@ -10,6 +10,14 @@ Real-time chat between people who know each other's usernames.
 A person with an account: name, unique lowercase username, email, password.
 _Avoid_: Account, member (member is a group role)
 
+**Username**:
+A user's current `@handle`, which is how people find each other. A user can change it any time, even before they are verified. Changing it frees the old one for anyone to take straight away.
+_Avoid_: Handle, nickname, display name (that's the name)
+
+**Password reset**:
+Setting a new password through a link sent to the user's email. Verified and unverified users can both do it. It does not verify the email.
+_Avoid_: Password recovery, forgot password (that's only the first half)
+
 **Verified user**:
 A user who has proven they own their email by opening the link sent to it. Only verified users can find people or chat.
 _Avoid_: Confirmed, activated
