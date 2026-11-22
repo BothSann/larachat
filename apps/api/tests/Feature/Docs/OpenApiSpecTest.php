@@ -55,6 +55,7 @@ it('lists every status code each endpoint can answer', function (string $method,
     'verify email' => ['get', '/api/v1/auth/email/verify/{id}/{hash}', [302, 403, 404, 429]],
     'resend verification email' => ['post', '/api/v1/auth/email/verification-notification', [202, 401, 409, 429]],
     'forgot password' => ['post', '/api/v1/auth/forgot-password', [202, 403, 422, 429]],
+    'reset password' => ['post', '/api/v1/auth/reset-password', [204, 403, 422, 429]],
 ]);
 
 it('marks only the auth:sanctum routes as authenticated', function (string $method, string $path, bool $authenticated): void {
@@ -69,6 +70,7 @@ it('marks only the auth:sanctum routes as authenticated', function (string $meth
     'verify email' => ['get', '/api/v1/auth/email/verify/{id}/{hash}', false],
     'resend verification email' => ['post', '/api/v1/auth/email/verification-notification', true],
     'forgot password' => ['post', '/api/v1/auth/forgot-password', false],
+    'reset password' => ['post', '/api/v1/auth/reset-password', false],
 ]);
 
 it('describes the user with every UserResource key', function (string $method, string $path, int $status): void {
