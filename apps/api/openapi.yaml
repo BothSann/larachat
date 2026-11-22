@@ -137,19 +137,19 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m7z1avnppgz3xgwdjhkb1zvz
+                    id: 01m818fzqxekawkkr1e9dhtn13
                     name: 'Mrs. Justina Gaylord'
                     username: deltvi9__k
                     email: theo.hauck@example.com
-                    email_verified_at: '2026-11-21T12:29:39.000000Z'
-                    created_at: '2026-11-21T12:29:39.000000Z'
+                    email_verified_at: '2026-11-22T09:13:16.000000Z'
+                    created_at: '2026-11-22T09:13:16.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: string
-                        example: 01m7z1avnppgz3xgwdjhkb1zvz
+                        example: 01m818fzqxekawkkr1e9dhtn13
                         description: ULID.
                       name:
                         type: string
@@ -162,12 +162,12 @@ paths:
                         example: theo.hauck@example.com
                       email_verified_at:
                         type: string
-                        example: '2026-11-21T12:29:39.000000Z'
+                        example: '2026-11-22T09:13:16.000000Z'
                         description: 'ISO 8601 UTC. Null until the email is verified.'
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-21T12:29:39.000000Z'
+                        example: '2026-11-22T09:13:16.000000Z'
                         description: 'ISO 8601 UTC.'
                     required:
                       - id
@@ -224,12 +224,12 @@ paths:
                   example: b
                 username:
                   type: string
-                  description: 'Must match the regex /^[a-z0-9_]{3,30}$/.'
-                  example: 0cljska6z34deltvi
+                  description: ''
+                  example: architecto
                 email:
                   type: string
                   description: 'Must be a valid email address. Must not be greater than 255 characters.'
-                  example: antonio24@example.net
+                  example: zbailey@example.net
                 password:
                   type: string
                   description: ''
@@ -260,19 +260,19 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m7z1avp2k9jdfkapj9e9h97b
+                    id: 01m818fzr29vc5fg6f2qsaahdm
                     name: 'Mrs. Justina Gaylord'
                     username: _folydlym
                     email: carey67@example.com
-                    email_verified_at: '2026-11-21T12:29:39.000000Z'
-                    created_at: '2026-11-21T12:29:39.000000Z'
+                    email_verified_at: '2026-11-22T09:13:16.000000Z'
+                    created_at: '2026-11-22T09:13:16.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: string
-                        example: 01m7z1avp2k9jdfkapj9e9h97b
+                        example: 01m818fzr29vc5fg6f2qsaahdm
                         description: ULID.
                       name:
                         type: string
@@ -285,12 +285,12 @@ paths:
                         example: carey67@example.com
                       email_verified_at:
                         type: string
-                        example: '2026-11-21T12:29:39.000000Z'
+                        example: '2026-11-22T09:13:16.000000Z'
                         description: 'ISO 8601 UTC. Null until the email is verified.'
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-21T12:29:39.000000Z'
+                        example: '2026-11-22T09:13:16.000000Z'
                         description: 'ISO 8601 UTC.'
                     required:
                       - id
@@ -481,19 +481,19 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m7z1avmmrg3gbjadhgdj3m07
+                    id: 01m818fzpp5xp5f2vsf3ea5wmt
                     name: 'Morgan Hirthe'
                     username: folydlymqh9m
                     email: sleffler@example.org
-                    email_verified_at: '2026-11-21T12:29:39.000000Z'
-                    created_at: '2026-11-21T12:29:39.000000Z'
+                    email_verified_at: '2026-11-22T09:13:16.000000Z'
+                    created_at: '2026-11-22T09:13:16.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: string
-                        example: 01m7z1avmmrg3gbjadhgdj3m07
+                        example: 01m818fzpp5xp5f2vsf3ea5wmt
                         description: ULID.
                       name:
                         type: string
@@ -506,12 +506,12 @@ paths:
                         example: sleffler@example.org
                       email_verified_at:
                         type: string
-                        example: '2026-11-21T12:29:39.000000Z'
+                        example: '2026-11-22T09:13:16.000000Z'
                         description: 'ISO 8601 UTC. Null until the email is verified.'
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-21T12:29:39.000000Z'
+                        example: '2026-11-22T09:13:16.000000Z'
                         description: 'ISO 8601 UTC.'
                     required:
                       - id
@@ -531,3 +531,113 @@ paths:
                     example: Unauthenticated.
       tags:
         - Account
+    patch:
+      summary: 'Update current user'
+      operationId: updateCurrentUser
+      description: 'Change your name and/or username. Send only the fields you want to change.'
+      parameters:
+        -
+          in: header
+          name: X-XSRF-TOKEN
+          description: ''
+          example: '{XSRF_TOKEN}'
+          schema:
+            type: string
+      responses:
+        200:
+          description: 'The updated user'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 01m818fzqhz2v1r79v66bgnr7m
+                    name: 'Ms. Elisabeth Okuneva'
+                    username: ka6z34de
+                    email: cormier.nick@example.com
+                    email_verified_at: '2026-11-22T09:13:16.000000Z'
+                    created_at: '2026-11-22T09:13:16.000000Z'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: 01m818fzqhz2v1r79v66bgnr7m
+                        description: ULID.
+                      name:
+                        type: string
+                        example: 'Ms. Elisabeth Okuneva'
+                      username:
+                        type: string
+                        example: ka6z34de
+                      email:
+                        type: string
+                        example: cormier.nick@example.com
+                      email_verified_at:
+                        type: string
+                        example: '2026-11-22T09:13:16.000000Z'
+                        description: 'ISO 8601 UTC. Null until the email is verified.'
+                        nullable: true
+                      created_at:
+                        type: string
+                        example: '2026-11-22T09:13:16.000000Z'
+                        description: 'ISO 8601 UTC.'
+                    required:
+                      - id
+                      - email_verified_at
+                      - created_at
+        401:
+          description: 'Not logged in'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+        422:
+          description: 'Validation failed'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'The username has already been taken.'
+                  errors:
+                    username:
+                      - 'The username has already been taken.'
+                properties:
+                  message:
+                    type: string
+                    example: 'The username has already been taken.'
+                  errors:
+                    type: object
+                    properties:
+                      username:
+                        type: array
+                        example:
+                          - 'The username has already been taken.'
+                        items:
+                          type: string
+      tags:
+        - Account
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Your name. Max 255.'
+                  example: 'Dara Sok'
+                username:
+                  type: string
+                  description: '3 to 30 lowercase letters, numbers, or underscores. Trimmed and lowercased.'
+                  example: dara_02

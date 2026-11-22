@@ -17,6 +17,8 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::post('/auth/email/verification-notification', ResendVerificationEmailController::class)
         ->middleware('throttle:verification-notification')
         ->name('verification.send');
+
+    Route::patch('/me', [MeController::class, 'update'])->name('me.update');
 });
 
 Route::post('/auth/register', RegisterController::class)->name('auth.register');

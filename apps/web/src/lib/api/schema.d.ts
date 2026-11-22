@@ -132,7 +132,11 @@ export interface paths {
         delete?: never;
         options?: never;
         head?: never;
-        patch?: never;
+        /**
+         * Update current user
+         * @description Change your name and/or username. Send only the fields you want to change.
+         */
+        patch: operations["updateCurrentUser"];
         trace?: never;
     };
 }
@@ -258,14 +262,11 @@ export interface operations {
                      * @example b
                      */
                     name: string;
-                    /**
-                     * @description Must match the regex /^[a-z0-9_]{3,30}$/.
-                     * @example 0cljska6z34deltvi
-                     */
+                    /** @example architecto */
                     username: string;
                     /**
                      * @description Must be a valid email address. Must not be greater than 255 characters.
-                     * @example antonio24@example.net
+                     * @example zbailey@example.net
                      */
                     email: string;
                     /** @example |]|{+- */
@@ -289,7 +290,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m7z1311fqpxr9kaq9xvj487y
+                             * @example 01m818fzqxekawkkr1e9dhtn13
                              */
                             id: string;
                             /** @example Mrs. Justina Gaylord */
@@ -300,12 +301,12 @@ export interface operations {
                             email?: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-21T12:25:23.000000Z
+                             * @example 2026-11-22T09:13:16.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-21T12:25:23.000000Z
+                             * @example 2026-11-22T09:13:16.000000Z
                              */
                             created_at: string;
                         };
@@ -363,7 +364,7 @@ export interface operations {
                     email: string;
                     /** @example |]|{+- */
                     password: string;
-                    /** @example true */
+                    /** @example false */
                     remember?: boolean;
                 };
             };
@@ -379,7 +380,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m7z1311vav5fha72xe840es7
+                             * @example 01m818fzr29vc5fg6f2qsaahdm
                              */
                             id: string;
                             /** @example Mrs. Justina Gaylord */
@@ -390,12 +391,12 @@ export interface operations {
                             email?: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-21T12:25:23.000000Z
+                             * @example 2026-11-22T09:13:16.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-21T12:25:23.000000Z
+                             * @example 2026-11-22T09:13:16.000000Z
                              */
                             created_at: string;
                         };
@@ -548,7 +549,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m7z1310s9190xm1y1zx79nnh
+                             * @example 01m818fzpp5xp5f2vsf3ea5wmt
                              */
                             id: string;
                             /** @example Morgan Hirthe */
@@ -559,12 +560,12 @@ export interface operations {
                             email?: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-21T12:25:22.000000Z
+                             * @example 2026-11-22T09:13:16.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-21T12:25:23.000000Z
+                             * @example 2026-11-22T09:13:16.000000Z
                              */
                             created_at: string;
                         };
@@ -580,6 +581,100 @@ export interface operations {
                     "application/json": {
                         /** @example Unauthenticated. */
                         message?: string;
+                    };
+                };
+            };
+        };
+    };
+    updateCurrentUser: {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @example {XSRF_TOKEN} */
+                "X-XSRF-TOKEN"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": {
+                    /**
+                     * @description Your name. Max 255.
+                     * @example Dara Sok
+                     */
+                    name?: string;
+                    /**
+                     * @description 3 to 30 lowercase letters, numbers, or underscores. Trimmed and lowercased.
+                     * @example dara_02
+                     */
+                    username?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description The updated user */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data?: {
+                            /**
+                             * @description ULID.
+                             * @example 01m818fzqhz2v1r79v66bgnr7m
+                             */
+                            id: string;
+                            /** @example Ms. Elisabeth Okuneva */
+                            name?: string;
+                            /** @example ka6z34de */
+                            username?: string;
+                            /** @example cormier.nick@example.com */
+                            email?: string;
+                            /**
+                             * @description ISO 8601 UTC. Null until the email is verified.
+                             * @example 2026-11-22T09:13:16.000000Z
+                             */
+                            email_verified_at: string | null;
+                            /**
+                             * @description ISO 8601 UTC.
+                             * @example 2026-11-22T09:13:16.000000Z
+                             */
+                            created_at: string;
+                        };
+                    };
+                };
+            };
+            /** @description Not logged in */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @example Unauthenticated. */
+                        message?: string;
+                    };
+                };
+            };
+            /** @description Validation failed */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @example The username has already been taken. */
+                        message?: string;
+                        errors?: {
+                            /**
+                             * @example [
+                             *       "The username has already been taken."
+                             *     ]
+                             */
+                            username?: string[];
+                        };
                     };
                 };
             };
