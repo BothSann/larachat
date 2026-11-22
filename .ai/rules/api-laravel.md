@@ -50,6 +50,7 @@ Also follow Laravel Boost guidelines in `apps/api/CLAUDE.md` and the `laravel-ap
 |---|---|
 | `login` | 5/min per email + IP |
 | `verification-notification` | 6/min per user |
+| `forgot-password` | 5/min per IP (the broker adds 1 email per address per 60s) |
 | `messages` | 30/min per user |
 | `search` | 60/min per user |
 | `api` | 120/min per user/IP |

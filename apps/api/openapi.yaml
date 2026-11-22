@@ -137,19 +137,19 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m81a523h8pghmj060966v6ax
+                    id: 01m81rernt2yth80gnxk8jfqw3
                     name: 'Mrs. Justina Gaylord'
                     username: deltvi9__k
                     email: theo.hauck@example.com
-                    email_verified_at: '2026-11-22T09:42:15.000000Z'
-                    created_at: '2026-11-22T09:42:15.000000Z'
+                    email_verified_at: '2026-11-22T13:52:14.000000Z'
+                    created_at: '2026-11-22T13:52:14.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: string
-                        example: 01m81a523h8pghmj060966v6ax
+                        example: 01m81rernt2yth80gnxk8jfqw3
                         description: ULID.
                       name:
                         type: string
@@ -165,12 +165,12 @@ paths:
                         description: 'Email address, unique.'
                       email_verified_at:
                         type: string
-                        example: '2026-11-22T09:42:15.000000Z'
+                        example: '2026-11-22T13:52:14.000000Z'
                         description: 'ISO 8601 UTC. Null until the email is verified.'
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-22T09:42:15.000000Z'
+                        example: '2026-11-22T13:52:14.000000Z'
                         description: 'ISO 8601 UTC.'
                     required:
                       - id
@@ -266,19 +266,19 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m81a523mvvc6c37d2m573s2g
+                    id: 01m81rerp177ndh9q3k28b02cb
                     name: 'Mrs. Justina Gaylord'
                     username: _folydlym
                     email: carey67@example.com
-                    email_verified_at: '2026-11-22T09:42:15.000000Z'
-                    created_at: '2026-11-22T09:42:15.000000Z'
+                    email_verified_at: '2026-11-22T13:52:14.000000Z'
+                    created_at: '2026-11-22T13:52:14.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: string
-                        example: 01m81a523mvvc6c37d2m573s2g
+                        example: 01m81rerp177ndh9q3k28b02cb
                         description: ULID.
                       name:
                         type: string
@@ -294,12 +294,12 @@ paths:
                         description: 'Email address, unique.'
                       email_verified_at:
                         type: string
-                        example: '2026-11-22T09:42:15.000000Z'
+                        example: '2026-11-22T13:52:14.000000Z'
                         description: 'ISO 8601 UTC. Null until the email is verified.'
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-22T09:42:15.000000Z'
+                        example: '2026-11-22T13:52:14.000000Z'
                         description: 'ISO 8601 UTC.'
                     required:
                       - id
@@ -376,7 +376,7 @@ paths:
                 remember:
                   type: boolean
                   description: ''
-                  example: false
+                  example: true
               required:
                 - email
                 - password
@@ -471,6 +471,84 @@ paths:
         required: true
         schema:
           type: string
+  /api/v1/auth/forgot-password:
+    post:
+      summary: 'Send password reset link'
+      operationId: sendPasswordResetLink
+      description: 'Email a 60-minute reset link if the address has an account. The reply is the same either way. Limited to 5 tries a minute per IP.'
+      parameters: []
+      responses:
+        202:
+          description: 'Accepted (sent, or no account with that email)'
+          content:
+            application/json:
+              schema:
+                type: object
+                nullable: true
+        403:
+          description: 'Already logged in'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'This action is unauthorized.'
+                properties:
+                  message:
+                    type: string
+                    example: 'This action is unauthorized.'
+        422:
+          description: 'Missing or bad email'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'The email field is required.'
+                  errors:
+                    email:
+                      - 'The email field is required.'
+                properties:
+                  message:
+                    type: string
+                    example: 'The email field is required.'
+                  errors:
+                    type: object
+                    properties:
+                      email:
+                        type: array
+                        example:
+                          - 'The email field is required.'
+                        items:
+                          type: string
+        429:
+          description: 'More than 5 tries in a minute'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Too Many Attempts.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Too Many Attempts.'
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: gbailey@example.net
+              required:
+                - email
+      security: []
   /api/v1/me:
     get:
       summary: 'Current user'
@@ -493,19 +571,19 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m81a522vj85phy219nq2bmcc
+                    id: 01m81rermfcfrn2587cf79f3yy
                     name: 'Morgan Hirthe'
                     username: folydlymqh9m
                     email: sleffler@example.org
-                    email_verified_at: '2026-11-22T09:42:15.000000Z'
-                    created_at: '2026-11-22T09:42:15.000000Z'
+                    email_verified_at: '2026-11-22T13:52:13.000000Z'
+                    created_at: '2026-11-22T13:52:13.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: string
-                        example: 01m81a522vj85phy219nq2bmcc
+                        example: 01m81rermfcfrn2587cf79f3yy
                         description: ULID.
                       name:
                         type: string
@@ -521,12 +599,12 @@ paths:
                         description: 'Email address, unique.'
                       email_verified_at:
                         type: string
-                        example: '2026-11-22T09:42:15.000000Z'
+                        example: '2026-11-22T13:52:13.000000Z'
                         description: 'ISO 8601 UTC. Null until the email is verified.'
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-22T09:42:15.000000Z'
+                        example: '2026-11-22T13:52:13.000000Z'
                         description: 'ISO 8601 UTC.'
                     required:
                       - id
@@ -570,19 +648,19 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m81a523acxpakyv6fpe3d20g
+                    id: 01m81rerndgkrd2krgy68rvhea
                     name: 'Ms. Elisabeth Okuneva'
                     username: ka6z34de
                     email: cormier.nick@example.com
-                    email_verified_at: '2026-11-22T09:42:15.000000Z'
-                    created_at: '2026-11-22T09:42:15.000000Z'
+                    email_verified_at: '2026-11-22T13:52:13.000000Z'
+                    created_at: '2026-11-22T13:52:13.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: string
-                        example: 01m81a523acxpakyv6fpe3d20g
+                        example: 01m81rerndgkrd2krgy68rvhea
                         description: ULID.
                       name:
                         type: string
@@ -598,12 +676,12 @@ paths:
                         description: 'Email address, unique.'
                       email_verified_at:
                         type: string
-                        example: '2026-11-22T09:42:15.000000Z'
+                        example: '2026-11-22T13:52:13.000000Z'
                         description: 'ISO 8601 UTC. Null until the email is verified.'
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-22T09:42:15.000000Z'
+                        example: '2026-11-22T13:52:13.000000Z'
                         description: 'ISO 8601 UTC.'
                     required:
                       - id
