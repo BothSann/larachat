@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "#/lib/api-client";
 import { ApiError } from "#/lib/api-error";
 import { meQuery } from "./queries";
-import type { LoginInput, RegisterInput } from "./schemas";
+import type { ForgotPasswordInput, LoginInput, RegisterInput } from "./schemas";
 
 export function useLogin() {
 	const queryClient = useQueryClient();
@@ -78,6 +78,14 @@ export function useResendVerification() {
 					queryKey: meQuery.queryKey,
 				});
 			}
+		},
+	});
+}
+
+export function useForgotPassword() {
+	return useMutation({
+		mutationFn: async (body: ForgotPasswordInput) => {
+			await api.POST("/api/v1/auth/forgot-password", { body });
 		},
 	});
 }

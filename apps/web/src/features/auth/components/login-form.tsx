@@ -1,5 +1,5 @@
 import { useForm } from "@tanstack/react-form";
-import { useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { TextField } from "#/components/text-field";
 import { Button } from "#/components/ui/button";
 import { Input } from "#/components/ui/input";
@@ -100,6 +100,14 @@ export function LoginForm({ redirect }: LoginFormProps) {
 					);
 				}}
 			</form.Field>
+
+			<Link
+				to="/forgot-password"
+				search={{ redirect }}
+				className="justify-self-start text-sm underline"
+			>
+				Forgot password?
+			</Link>
 
 			<Button type="submit" disabled={login.isPending}>
 				{login.isPending ? "Logging in…" : "Continue"}

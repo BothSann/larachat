@@ -14,6 +14,7 @@ import { Route as AppRouteRouteImport } from './routes/_app/route'
 import { Route as GuestRouteRouteImport } from './routes/_guest/route'
 import { Route as AppChatsRouteImport } from './routes/_app/chats'
 import { Route as AppProfileRouteImport } from './routes/_app/profile'
+import { Route as GuestForgotPasswordRouteImport } from './routes/_guest/forgot-password'
 import { Route as GuestLoginRouteImport } from './routes/_guest/login'
 import { Route as GuestRegisterRouteImport } from './routes/_guest/register'
 
@@ -40,6 +41,11 @@ const AppProfileRoute = AppProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => AppRouteRoute,
 } as any)
+const GuestForgotPasswordRoute = GuestForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => GuestRouteRoute,
+} as any)
 const GuestLoginRoute = GuestLoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -55,6 +61,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/chats': typeof AppChatsRoute
   '/profile': typeof AppProfileRoute
+  '/forgot-password': typeof GuestForgotPasswordRoute
   '/login': typeof GuestLoginRoute
   '/register': typeof GuestRegisterRoute
 }
@@ -62,6 +69,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/chats': typeof AppChatsRoute
   '/profile': typeof AppProfileRoute
+  '/forgot-password': typeof GuestForgotPasswordRoute
   '/login': typeof GuestLoginRoute
   '/register': typeof GuestRegisterRoute
 }
@@ -72,14 +80,16 @@ export interface FileRoutesById {
   '/_guest': typeof GuestRouteRouteWithChildren
   '/_app/chats': typeof AppChatsRoute
   '/_app/profile': typeof AppProfileRoute
+  '/_guest/forgot-password': typeof GuestForgotPasswordRoute
   '/_guest/login': typeof GuestLoginRoute
   '/_guest/register': typeof GuestRegisterRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/chats' | '/profile' | '/login' | '/register'
+  fullPaths:
+    '/' | '/chats' | '/profile' | '/forgot-password' | '/login' | '/register'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/chats' | '/profile' | '/login' | '/register'
+  to: '/' | '/chats' | '/profile' | '/forgot-password' | '/login' | '/register'
   id:
     | '__root__'
     | '/'
@@ -87,6 +97,7 @@ export interface FileRouteTypes {
     | '/_guest'
     | '/_app/chats'
     | '/_app/profile'
+    | '/_guest/forgot-password'
     | '/_guest/login'
     | '/_guest/register'
   fileRoutesById: FileRoutesById
@@ -134,6 +145,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppProfileRouteImport
       parentRoute: typeof AppRouteRoute
     }
+    '/_guest/forgot-password': {
+      id: '/_guest/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof GuestForgotPasswordRouteImport
+      parentRoute: typeof GuestRouteRoute
+    }
     '/_guest/login': {
       id: '/_guest/login'
       path: '/login'
@@ -166,11 +184,13 @@ const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
 )
 
 interface GuestRouteRouteChildren {
+  GuestForgotPasswordRoute: typeof GuestForgotPasswordRoute
   GuestLoginRoute: typeof GuestLoginRoute
   GuestRegisterRoute: typeof GuestRegisterRoute
 }
 
 const GuestRouteRouteChildren: GuestRouteRouteChildren = {
+  GuestForgotPasswordRoute: GuestForgotPasswordRoute,
   GuestLoginRoute: GuestLoginRoute,
   GuestRegisterRoute: GuestRegisterRoute,
 }
