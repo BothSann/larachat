@@ -137,40 +137,46 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m818fzqxekawkkr1e9dhtn13
+                    id: 01m81a523h8pghmj060966v6ax
                     name: 'Mrs. Justina Gaylord'
                     username: deltvi9__k
                     email: theo.hauck@example.com
-                    email_verified_at: '2026-11-22T09:13:16.000000Z'
-                    created_at: '2026-11-22T09:13:16.000000Z'
+                    email_verified_at: '2026-11-22T09:42:15.000000Z'
+                    created_at: '2026-11-22T09:42:15.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: string
-                        example: 01m818fzqxekawkkr1e9dhtn13
+                        example: 01m81a523h8pghmj060966v6ax
                         description: ULID.
                       name:
                         type: string
                         example: 'Mrs. Justina Gaylord'
+                        description: 'Display name.'
                       username:
                         type: string
                         example: deltvi9__k
+                        description: 'Lowercase @handle, unique.'
                       email:
                         type: string
                         example: theo.hauck@example.com
+                        description: 'Email address, unique.'
                       email_verified_at:
                         type: string
-                        example: '2026-11-22T09:13:16.000000Z'
+                        example: '2026-11-22T09:42:15.000000Z'
                         description: 'ISO 8601 UTC. Null until the email is verified.'
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-22T09:13:16.000000Z'
+                        example: '2026-11-22T09:42:15.000000Z'
                         description: 'ISO 8601 UTC.'
                     required:
                       - id
+                      - name
+                      - username
+                      - email
                       - email_verified_at
                       - created_at
         403:
@@ -260,40 +266,46 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m818fzr29vc5fg6f2qsaahdm
+                    id: 01m81a523mvvc6c37d2m573s2g
                     name: 'Mrs. Justina Gaylord'
                     username: _folydlym
                     email: carey67@example.com
-                    email_verified_at: '2026-11-22T09:13:16.000000Z'
-                    created_at: '2026-11-22T09:13:16.000000Z'
+                    email_verified_at: '2026-11-22T09:42:15.000000Z'
+                    created_at: '2026-11-22T09:42:15.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: string
-                        example: 01m818fzr29vc5fg6f2qsaahdm
+                        example: 01m81a523mvvc6c37d2m573s2g
                         description: ULID.
                       name:
                         type: string
                         example: 'Mrs. Justina Gaylord'
+                        description: 'Display name.'
                       username:
                         type: string
                         example: _folydlym
+                        description: 'Lowercase @handle, unique.'
                       email:
                         type: string
                         example: carey67@example.com
+                        description: 'Email address, unique.'
                       email_verified_at:
                         type: string
-                        example: '2026-11-22T09:13:16.000000Z'
+                        example: '2026-11-22T09:42:15.000000Z'
                         description: 'ISO 8601 UTC. Null until the email is verified.'
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-22T09:13:16.000000Z'
+                        example: '2026-11-22T09:42:15.000000Z'
                         description: 'ISO 8601 UTC.'
                     required:
                       - id
+                      - name
+                      - username
+                      - email
                       - email_verified_at
                       - created_at
         403:
@@ -481,40 +493,46 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m818fzpp5xp5f2vsf3ea5wmt
+                    id: 01m81a522vj85phy219nq2bmcc
                     name: 'Morgan Hirthe'
                     username: folydlymqh9m
                     email: sleffler@example.org
-                    email_verified_at: '2026-11-22T09:13:16.000000Z'
-                    created_at: '2026-11-22T09:13:16.000000Z'
+                    email_verified_at: '2026-11-22T09:42:15.000000Z'
+                    created_at: '2026-11-22T09:42:15.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: string
-                        example: 01m818fzpp5xp5f2vsf3ea5wmt
+                        example: 01m81a522vj85phy219nq2bmcc
                         description: ULID.
                       name:
                         type: string
                         example: 'Morgan Hirthe'
+                        description: 'Display name.'
                       username:
                         type: string
                         example: folydlymqh9m
+                        description: 'Lowercase @handle, unique.'
                       email:
                         type: string
                         example: sleffler@example.org
+                        description: 'Email address, unique.'
                       email_verified_at:
                         type: string
-                        example: '2026-11-22T09:13:16.000000Z'
+                        example: '2026-11-22T09:42:15.000000Z'
                         description: 'ISO 8601 UTC. Null until the email is verified.'
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-22T09:13:16.000000Z'
+                        example: '2026-11-22T09:42:15.000000Z'
                         description: 'ISO 8601 UTC.'
                     required:
                       - id
+                      - name
+                      - username
+                      - email
                       - email_verified_at
                       - created_at
         401:
@@ -552,40 +570,46 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m818fzqhz2v1r79v66bgnr7m
+                    id: 01m81a523acxpakyv6fpe3d20g
                     name: 'Ms. Elisabeth Okuneva'
                     username: ka6z34de
                     email: cormier.nick@example.com
-                    email_verified_at: '2026-11-22T09:13:16.000000Z'
-                    created_at: '2026-11-22T09:13:16.000000Z'
+                    email_verified_at: '2026-11-22T09:42:15.000000Z'
+                    created_at: '2026-11-22T09:42:15.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: string
-                        example: 01m818fzqhz2v1r79v66bgnr7m
+                        example: 01m81a523acxpakyv6fpe3d20g
                         description: ULID.
                       name:
                         type: string
                         example: 'Ms. Elisabeth Okuneva'
+                        description: 'Display name.'
                       username:
                         type: string
                         example: ka6z34de
+                        description: 'Lowercase @handle, unique.'
                       email:
                         type: string
                         example: cormier.nick@example.com
+                        description: 'Email address, unique.'
                       email_verified_at:
                         type: string
-                        example: '2026-11-22T09:13:16.000000Z'
+                        example: '2026-11-22T09:42:15.000000Z'
                         description: 'ISO 8601 UTC. Null until the email is verified.'
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-22T09:13:16.000000Z'
+                        example: '2026-11-22T09:42:15.000000Z'
                         description: 'ISO 8601 UTC.'
                     required:
                       - id
+                      - name
+                      - username
+                      - email
                       - email_verified_at
                       - created_at
         401:

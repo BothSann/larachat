@@ -290,23 +290,32 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m818fzqxekawkkr1e9dhtn13
+                             * @example 01m81a523h8pghmj060966v6ax
                              */
                             id: string;
-                            /** @example Mrs. Justina Gaylord */
-                            name?: string;
-                            /** @example deltvi9__k */
-                            username?: string;
-                            /** @example theo.hauck@example.com */
-                            email?: string;
+                            /**
+                             * @description Display name.
+                             * @example Mrs. Justina Gaylord
+                             */
+                            name: string;
+                            /**
+                             * @description Lowercase @handle, unique.
+                             * @example deltvi9__k
+                             */
+                            username: string;
+                            /**
+                             * @description Email address, unique.
+                             * @example theo.hauck@example.com
+                             */
+                            email: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-22T09:13:16.000000Z
+                             * @example 2026-11-22T09:42:15.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-22T09:13:16.000000Z
+                             * @example 2026-11-22T09:42:15.000000Z
                              */
                             created_at: string;
                         };
@@ -380,23 +389,32 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m818fzr29vc5fg6f2qsaahdm
+                             * @example 01m81a523mvvc6c37d2m573s2g
                              */
                             id: string;
-                            /** @example Mrs. Justina Gaylord */
-                            name?: string;
-                            /** @example _folydlym */
-                            username?: string;
-                            /** @example carey67@example.com */
-                            email?: string;
+                            /**
+                             * @description Display name.
+                             * @example Mrs. Justina Gaylord
+                             */
+                            name: string;
+                            /**
+                             * @description Lowercase @handle, unique.
+                             * @example _folydlym
+                             */
+                            username: string;
+                            /**
+                             * @description Email address, unique.
+                             * @example carey67@example.com
+                             */
+                            email: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-22T09:13:16.000000Z
+                             * @example 2026-11-22T09:42:15.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-22T09:13:16.000000Z
+                             * @example 2026-11-22T09:42:15.000000Z
                              */
                             created_at: string;
                         };
@@ -549,23 +567,32 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m818fzpp5xp5f2vsf3ea5wmt
+                             * @example 01m81a522vj85phy219nq2bmcc
                              */
                             id: string;
-                            /** @example Morgan Hirthe */
-                            name?: string;
-                            /** @example folydlymqh9m */
-                            username?: string;
-                            /** @example sleffler@example.org */
-                            email?: string;
+                            /**
+                             * @description Display name.
+                             * @example Morgan Hirthe
+                             */
+                            name: string;
+                            /**
+                             * @description Lowercase @handle, unique.
+                             * @example folydlymqh9m
+                             */
+                            username: string;
+                            /**
+                             * @description Email address, unique.
+                             * @example sleffler@example.org
+                             */
+                            email: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-22T09:13:16.000000Z
+                             * @example 2026-11-22T09:42:15.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-22T09:13:16.000000Z
+                             * @example 2026-11-22T09:42:15.000000Z
                              */
                             created_at: string;
                         };
@@ -623,23 +650,32 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m818fzqhz2v1r79v66bgnr7m
+                             * @example 01m81a523acxpakyv6fpe3d20g
                              */
                             id: string;
-                            /** @example Ms. Elisabeth Okuneva */
-                            name?: string;
-                            /** @example ka6z34de */
-                            username?: string;
-                            /** @example cormier.nick@example.com */
-                            email?: string;
+                            /**
+                             * @description Display name.
+                             * @example Ms. Elisabeth Okuneva
+                             */
+                            name: string;
+                            /**
+                             * @description Lowercase @handle, unique.
+                             * @example ka6z34de
+                             */
+                            username: string;
+                            /**
+                             * @description Email address, unique.
+                             * @example cormier.nick@example.com
+                             */
+                            email: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-22T09:13:16.000000Z
+                             * @example 2026-11-22T09:42:15.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-22T09:13:16.000000Z
+                             * @example 2026-11-22T09:42:15.000000Z
                              */
                             created_at: string;
                         };

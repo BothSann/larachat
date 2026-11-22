@@ -81,3 +81,15 @@ it('describes the user with every UserResource key', function (string $method, s
     'login' => ['post', '/api/v1/auth/login', 200],
     'me' => ['get', '/api/v1/me', 200],
 ]);
+
+it('marks every UserResource key as always sent', function (string $method, string $path, int $status): void {
+    /** @var array{required?: list<string>} $user */
+    $user = specPaths()[$path][$method]['responses'][$status]['content']['application/json']['schema']['properties']['data'];
+
+    expect($user['required'] ?? [])->toEqualCanonicalizing(['id', 'name', 'username', 'email', 'email_verified_at', 'created_at']);
+})->with([
+    'register' => ['post', '/api/v1/auth/register', 201],
+    'login' => ['post', '/api/v1/auth/login', 200],
+    'me' => ['get', '/api/v1/me', 200],
+    'update me' => ['patch', '/api/v1/me', 200],
+]);
