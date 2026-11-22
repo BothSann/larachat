@@ -1,11 +1,11 @@
 import { useForm } from "@tanstack/react-form";
 import { useNavigate } from "@tanstack/react-router";
+import { TextField } from "#/components/text-field";
 import { Button } from "#/components/ui/button";
 import { ApiError } from "#/lib/api-error";
 import { useRegister } from "../mutations";
 import { safeRedirect } from "../redirect";
 import { registerSchema } from "../schemas";
-import { TextField } from "./text-field";
 
 type RegisterFormProps = {
 	redirect: string | undefined;

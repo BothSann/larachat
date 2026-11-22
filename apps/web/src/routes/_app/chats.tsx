@@ -1,5 +1,5 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Button } from "#/components/ui/button";
 import { useLogout } from "#/features/auth/mutations";
 import { meQuery } from "#/features/auth/queries";
@@ -32,7 +32,13 @@ function Chats() {
 					</Button>
 				</div>
 			)}
-			<p>Signed in as {user.name}</p>
+
+			<div className="flex items-center gap-3">
+				<p>Signed in as {user.name}</p>
+				<Link to="/profile" className="text-sm underline">
+					Profile
+				</Link>
+			</div>
 
 			<div className="flex items-center gap-3">
 				<Button
