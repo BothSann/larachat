@@ -22,6 +22,10 @@ _Avoid_: Account, settings
 Setting a new password through a link sent to the user's email. Verified and unverified users can both do it. It does not verify the email.
 _Avoid_: Password recovery, forgot password (that's only the first half)
 
+**Reset link**:
+The link in a password reset email. Only the newest one a user asked for works, it expires after 60 minutes, and it works once. Asking for it gives the same answer whether the email has an account or not.
+_Avoid_: Reset token (that's the secret inside the link), recovery link
+
 **Verified user**:
 A user who has proven they own their email by opening the link sent to it. Only verified users can find people or chat.
 _Avoid_: Confirmed, activated

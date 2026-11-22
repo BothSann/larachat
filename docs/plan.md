@@ -25,13 +25,15 @@ No endpoints. Laravel API (`apps/api`) with Pest, Sanctum (SPA mode), Postgres, 
 | PATCH | `/api/v1/me` | user | Change name / username → 200 |
 | POST | `/api/v1/auth/email/verification-notification` | user | Resend email → 202; 409 `already_verified`; 429 after 6/min per user |
 | GET | `/api/v1/auth/email/verify/{id}/{hash}` | public (signed URL) | Verify → 302 to `FRONTEND_URL/chats?verified=1` (also when already verified) |
-| POST | `/api/v1/auth/forgot-password` | guest | Send reset link → 202 (same reply whether email exists or not) |
+| POST | `/api/v1/auth/forgot-password` | guest | Queue reset link email → 202 (same reply whether email exists or not); 429 after 5/min per IP |
 | POST | `/api/v1/auth/reset-password` | guest | Set new password → 204 |
+| PUT | `/api/v1/me/password` | user | Change password: body `{ current_password, password, password_confirmation }` → 204; 422 wrong current password |
 
 Lessons (each API lesson is followed by its web lesson):
 1. Register, login, logout, `GET /me` (with the login 429), plus `/sanctum/csrf-cookie`.
 2. Email verification (resend + verify link) and `PATCH /me`.
 3. Forgot and reset password.
+4. Change password while logged in (`PUT /me/password`), after lesson 3.
 
 ## 3. People and direct chats
 
