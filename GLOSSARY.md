@@ -19,7 +19,7 @@ A user's name and username: the parts of a user they can change themselves. Emai
 _Avoid_: Account, settings
 
 **Password reset**:
-Setting a new password through a link sent to the user's email. Verified and unverified users can both do it. It does not verify the email.
+Setting a new password through a link sent to the user's email. Verified and unverified users can both do it. It does not verify the email. It ends every session the user has, including remembered ones, and does not log them in: they log in again with the new password.
 _Avoid_: Password recovery, forgot password (that's only the first half)
 
 **Reset link**:
