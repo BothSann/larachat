@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\V1\Auth\LoginController;
 use App\Http\Controllers\Api\V1\Auth\LogoutController;
 use App\Http\Controllers\Api\V1\Auth\RegisterController;
 use App\Http\Controllers\Api\V1\Auth\ResendVerificationEmailController;
+use App\Http\Controllers\Api\V1\Auth\ResetPasswordController;
 use App\Http\Controllers\Api\V1\Auth\VerifyEmailController;
 use App\Http\Controllers\Api\V1\MeController;
 use Illuminate\Support\Facades\Route;
@@ -36,3 +37,7 @@ Route::get('/auth/email/verify/{id}/{hash}', VerifyEmailController::class)
 Route::post('/auth/forgot-password', ForgotPasswordController::class)
     ->middleware('throttle:forgot-password')
     ->name('password.email');
+
+Route::post('/auth/reset-password', ResetPasswordController::class)
+    ->middleware('throttle:forgot-password')
+    ->name('password.update');
