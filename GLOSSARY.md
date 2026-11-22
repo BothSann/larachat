@@ -14,6 +14,10 @@ _Avoid_: Account, member (member is a group role)
 A user's current `@handle`, which is how people find each other. A user can change it any time, even before they are verified. Changing it frees the old one for anyone to take straight away.
 _Avoid_: Handle, nickname, display name (that's the name)
 
+**Profile**:
+A user's name and username: the parts of a user they can change themselves. Email and password aren't part of it.
+_Avoid_: Account, settings
+
 **Password reset**:
 Setting a new password through a link sent to the user's email. Verified and unverified users can both do it. It does not verify the email.
 _Avoid_: Password recovery, forgot password (that's only the first half)
