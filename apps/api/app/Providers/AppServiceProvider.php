@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Models\User;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -29,5 +31,13 @@ class AppServiceProvider extends ServiceProvider
 
         RateLimiter::for('verification-notification', fn (Request $request): Limit => Limit::perMinute(6)
             ->by($request->user()?->id ?: $request->ip()));
+
+        RateLimiter::for('forgot-password', fn (Request $request): Limit => Limit::perMinute(5)
+            ->by($request->ip()));
+
+        ResetPassword::createUrlUsing(fn (User $user, string $token): string => config('app.frontend_url').'/reset-password?'.http_build_query([
+            'token' => $token,
+            'email' => $user->getEmailForPasswordReset(),
+        ]));
     }
 }

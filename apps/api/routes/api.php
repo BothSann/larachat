@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Api\V1\Auth\ForgotPasswordController;
 use App\Http\Controllers\Api\V1\Auth\LoginController;
 use App\Http\Controllers\Api\V1\Auth\LogoutController;
 use App\Http\Controllers\Api\V1\Auth\RegisterController;
@@ -31,3 +32,7 @@ Route::get('/auth/email/verify/{id}/{hash}', VerifyEmailController::class)
     ->middleware(['signed', 'throttle:6,1'])
     ->whereUlid('id')
     ->name('verification.verify');
+
+Route::post('/auth/forgot-password', ForgotPasswordController::class)
+    ->middleware('throttle:forgot-password')
+    ->name('password.email');
