@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Requests\Auth;
 
 use App\Data\RegisterUserData;
+use App\Rules\Username;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
@@ -28,7 +29,7 @@ final class RegisterRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'regex:/^[a-z0-9_]{3,30}$/', 'unique:users,username'],
+            'username' => ['required', 'string', new Username, 'unique:users,username'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'confirmed', Password::defaults()],
         ];
@@ -47,7 +48,7 @@ final class RegisterRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $this->merge([
-            'username' => is_string($this->username) ? mb_strtolower(trim($this->username)) : $this->username,
+            'username' => Username::normalize($this->username),
             'email' => is_string($this->email) ? mb_strtolower(trim($this->email)) : $this->email,
         ]);
     }
