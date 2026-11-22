@@ -22,9 +22,14 @@ export const registerSchema = z
 		path: ["password_confirmation"],
 	});
 
+export const forgotPasswordSchema = z.object({
+	email: z.email("Enter a valid email address."),
+});
+
 export const chatsSearchSchema = z.object({
 	verified: z.literal(1).optional().catch(undefined),
 });
 
 export type LoginInput = z.infer<typeof loginSchema>;
 export type RegisterInput = z.infer<typeof registerSchema>;
+export type ForgotPasswordInput = z.infer<typeof forgotPasswordSchema>;

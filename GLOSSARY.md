@@ -22,6 +22,10 @@ _Avoid_: Account, settings
 Setting a new password through a link sent to the user's email. Verified and unverified users can both do it. It does not verify the email. It ends every session the user has, including remembered ones, and does not log them in: they log in again with the new password.
 _Avoid_: Password recovery, forgot password (that's only the first half)
 
+**Password change**:
+Setting a new password while logged in, by giving the current password first. It ends every other session the user has and keeps the one they used to make the change.
+_Avoid_: Password reset (that's the emailed-link flow for a forgotten password), update password
+
 **Reset link**:
 The link in a password reset email. Only the newest one a user asked for works, it expires after 60 minutes, and it works once. Asking for it gives the same answer whether the email has an account or not.
 _Avoid_: Reset token (that's the secret inside the link), recovery link

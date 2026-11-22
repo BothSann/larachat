@@ -115,6 +115,46 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/auth/forgot-password": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Send password reset link
+         * @description Email a 60-minute reset link if the address has an account. The reply is the same either way. Limited to 5 tries a minute per IP.
+         */
+        post: operations["sendPasswordResetLink"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/reset-password": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Reset password
+         * @description Set a new password with the token and email from the reset link. Ends every session and does not log in. Shares the forgot-password limit: 5 tries a minute per IP.
+         */
+        post: operations["resetPassword"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/me": {
         parameters: {
             query?: never;
@@ -290,7 +330,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m81a523h8pghmj060966v6ax
+                             * @example 01m81xp340dgsf3r5rc9j2xqj2
                              */
                             id: string;
                             /**
@@ -310,12 +350,12 @@ export interface operations {
                             email: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-22T09:42:15.000000Z
+                             * @example 2026-11-22T15:23:36.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-22T09:42:15.000000Z
+                             * @example 2026-11-22T15:23:36.000000Z
                              */
                             created_at: string;
                         };
@@ -389,7 +429,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m81a523mvvc6c37d2m573s2g
+                             * @example 01m81xp344pfc9hdfb7ertmk9q
                              */
                             id: string;
                             /**
@@ -409,12 +449,12 @@ export interface operations {
                             email: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-22T09:42:15.000000Z
+                             * @example 2026-11-22T15:23:36.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-22T09:42:15.000000Z
+                             * @example 2026-11-22T15:23:36.000000Z
                              */
                             created_at: string;
                         };
@@ -545,6 +585,163 @@ export interface operations {
             };
         };
     };
+    sendPasswordResetLink: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /**
+                     * @description Must be a valid email address.
+                     * @example gbailey@example.net
+                     */
+                    email: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Accepted (sent, or no account with that email) */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never> | null;
+                };
+            };
+            /** @description Already logged in */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @example This action is unauthorized. */
+                        message?: string;
+                    };
+                };
+            };
+            /** @description Missing or bad email */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @example The email field is required. */
+                        message?: string;
+                        errors?: {
+                            /**
+                             * @example [
+                             *       "The email field is required."
+                             *     ]
+                             */
+                            email?: string[];
+                        };
+                    };
+                };
+            };
+            /** @description More than 5 tries in a minute */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @example Too Many Attempts. */
+                        message?: string;
+                    };
+                };
+            };
+        };
+    };
+    resetPassword: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @example architecto */
+                    token: string;
+                    /**
+                     * @description Must be a valid email address.
+                     * @example zbailey@example.net
+                     */
+                    email: string;
+                    /** @example |]|{+- */
+                    password: string;
+                    /**
+                     * @description Must match password.
+                     * @example correct-horse-battery
+                     */
+                    password_confirmation: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Password changed */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never> | null;
+                };
+            };
+            /** @description Already logged in */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @example This action is unauthorized. */
+                        message?: string;
+                    };
+                };
+            };
+            /** @description Bad reset link, or a missing or bad field */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @example This reset link is invalid or has expired. */
+                        message?: string;
+                        errors?: {
+                            /**
+                             * @example [
+                             *       "This reset link is invalid or has expired."
+                             *     ]
+                             */
+                            token?: string[];
+                        };
+                    };
+                };
+            };
+            /** @description More than 5 tries in a minute */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @example Too Many Attempts. */
+                        message?: string;
+                    };
+                };
+            };
+        };
+    };
     currentUser: {
         parameters: {
             query?: never;
@@ -567,7 +764,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m81a522vj85phy219nq2bmcc
+                             * @example 01m81xp32xvt82fcx1101a37ex
                              */
                             id: string;
                             /**
@@ -587,12 +784,12 @@ export interface operations {
                             email: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-22T09:42:15.000000Z
+                             * @example 2026-11-22T15:23:36.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-22T09:42:15.000000Z
+                             * @example 2026-11-22T15:23:36.000000Z
                              */
                             created_at: string;
                         };
@@ -650,7 +847,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m81a523acxpakyv6fpe3d20g
+                             * @example 01m81xp33njhkmf6hgjb7695tj
                              */
                             id: string;
                             /**
@@ -670,12 +867,12 @@ export interface operations {
                             email: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-22T09:42:15.000000Z
+                             * @example 2026-11-22T15:23:36.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-22T09:42:15.000000Z
+                             * @example 2026-11-22T15:23:36.000000Z
                              */
                             created_at: string;
                         };
