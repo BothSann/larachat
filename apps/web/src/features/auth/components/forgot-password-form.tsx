@@ -2,18 +2,9 @@ import { useForm } from "@tanstack/react-form";
 import { TextField } from "#/components/text-field";
 import { Button } from "#/components/ui/button";
 import { ApiError } from "#/lib/api-error";
+import { formErrorText } from "../form-error";
 import { useForgotPassword } from "../mutations";
 import { forgotPasswordSchema } from "../schemas";
-
-function formErrorText(error: Error | null): string | null {
-	if (!error) return null;
-	if (error instanceof ApiError && error.status === 422) return null;
-	if (error instanceof ApiError && error.status === 429) {
-		return "Too many tries. Wait a minute and try again.";
-	}
-
-	return error.message;
-}
 
 export function ForgotPasswordForm() {
 	const forgot = useForgotPassword();
