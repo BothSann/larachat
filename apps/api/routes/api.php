@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Api\V1\Auth\ChangePasswordController;
 use App\Http\Controllers\Api\V1\Auth\ForgotPasswordController;
 use App\Http\Controllers\Api\V1\Auth\LoginController;
 use App\Http\Controllers\Api\V1\Auth\LogoutController;
@@ -21,6 +22,10 @@ Route::middleware('auth:sanctum')->group(function (): void {
         ->name('verification.send');
 
     Route::patch('/me', [MeController::class, 'update'])->name('me.update');
+
+    Route::put('/me/password', ChangePasswordController::class)
+        ->middleware('throttle:change-password')
+        ->name('me.password.update');
 });
 
 Route::post('/auth/register', RegisterController::class)->name('auth.register');

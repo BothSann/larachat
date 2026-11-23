@@ -137,19 +137,19 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m81xp340dgsf3r5rc9j2xqj2
+                    id: 01m844gn3cqg2nc4kcenvazcx3
                     name: 'Mrs. Justina Gaylord'
                     username: deltvi9__k
                     email: theo.hauck@example.com
-                    email_verified_at: '2026-11-22T15:23:36.000000Z'
-                    created_at: '2026-11-22T15:23:36.000000Z'
+                    email_verified_at: '2026-11-23T12:01:27.000000Z'
+                    created_at: '2026-11-23T12:01:27.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: string
-                        example: 01m81xp340dgsf3r5rc9j2xqj2
+                        example: 01m844gn3cqg2nc4kcenvazcx3
                         description: ULID.
                       name:
                         type: string
@@ -165,12 +165,12 @@ paths:
                         description: 'Email address, unique.'
                       email_verified_at:
                         type: string
-                        example: '2026-11-22T15:23:36.000000Z'
+                        example: '2026-11-23T12:01:27.000000Z'
                         description: 'ISO 8601 UTC. Null until the email is verified.'
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-22T15:23:36.000000Z'
+                        example: '2026-11-23T12:01:27.000000Z'
                         description: 'ISO 8601 UTC.'
                     required:
                       - id
@@ -266,19 +266,19 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m81xp344pfc9hdfb7ertmk9q
+                    id: 01m844gn3g9a4n9k7v4ekezgsc
                     name: 'Mrs. Justina Gaylord'
                     username: _folydlym
                     email: carey67@example.com
-                    email_verified_at: '2026-11-22T15:23:36.000000Z'
-                    created_at: '2026-11-22T15:23:36.000000Z'
+                    email_verified_at: '2026-11-23T12:01:27.000000Z'
+                    created_at: '2026-11-23T12:01:27.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: string
-                        example: 01m81xp344pfc9hdfb7ertmk9q
+                        example: 01m844gn3g9a4n9k7v4ekezgsc
                         description: ULID.
                       name:
                         type: string
@@ -294,12 +294,12 @@ paths:
                         description: 'Email address, unique.'
                       email_verified_at:
                         type: string
-                        example: '2026-11-22T15:23:36.000000Z'
+                        example: '2026-11-23T12:01:27.000000Z'
                         description: 'ISO 8601 UTC. Null until the email is verified.'
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-22T15:23:36.000000Z'
+                        example: '2026-11-23T12:01:27.000000Z'
                         description: 'ISO 8601 UTC.'
                     required:
                       - id
@@ -376,7 +376,7 @@ paths:
                 remember:
                   type: boolean
                   description: ''
-                  example: false
+                  example: true
               required:
                 - email
                 - password
@@ -664,19 +664,19 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m81xp32xvt82fcx1101a37ex
+                    id: 01m844gn28g1rsd5crsj9j1ttw
                     name: 'Morgan Hirthe'
                     username: folydlymqh9m
                     email: sleffler@example.org
-                    email_verified_at: '2026-11-22T15:23:36.000000Z'
-                    created_at: '2026-11-22T15:23:36.000000Z'
+                    email_verified_at: '2026-11-23T12:01:27.000000Z'
+                    created_at: '2026-11-23T12:01:27.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: string
-                        example: 01m81xp32xvt82fcx1101a37ex
+                        example: 01m844gn28g1rsd5crsj9j1ttw
                         description: ULID.
                       name:
                         type: string
@@ -692,12 +692,12 @@ paths:
                         description: 'Email address, unique.'
                       email_verified_at:
                         type: string
-                        example: '2026-11-22T15:23:36.000000Z'
+                        example: '2026-11-23T12:01:27.000000Z'
                         description: 'ISO 8601 UTC. Null until the email is verified.'
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-22T15:23:36.000000Z'
+                        example: '2026-11-23T12:01:27.000000Z'
                         description: 'ISO 8601 UTC.'
                     required:
                       - id
@@ -741,19 +741,19 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m81xp33njhkmf6hgjb7695tj
+                    id: 01m844gn2t7ffcdadykxt7aamq
                     name: 'Ms. Elisabeth Okuneva'
                     username: ka6z34de
                     email: cormier.nick@example.com
-                    email_verified_at: '2026-11-22T15:23:36.000000Z'
-                    created_at: '2026-11-22T15:23:36.000000Z'
+                    email_verified_at: '2026-11-23T12:01:27.000000Z'
+                    created_at: '2026-11-23T12:01:27.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: string
-                        example: 01m81xp33njhkmf6hgjb7695tj
+                        example: 01m844gn2t7ffcdadykxt7aamq
                         description: ULID.
                       name:
                         type: string
@@ -769,12 +769,12 @@ paths:
                         description: 'Email address, unique.'
                       email_verified_at:
                         type: string
-                        example: '2026-11-22T15:23:36.000000Z'
+                        example: '2026-11-23T12:01:27.000000Z'
                         description: 'ISO 8601 UTC. Null until the email is verified.'
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-22T15:23:36.000000Z'
+                        example: '2026-11-23T12:01:27.000000Z'
                         description: 'ISO 8601 UTC.'
                     required:
                       - id
@@ -836,3 +836,97 @@ paths:
                   type: string
                   description: '3 to 30 lowercase letters, numbers, or underscores. Trimmed and lowercased.'
                   example: dara_02
+  /api/v1/me/password:
+    put:
+      summary: 'Change password'
+      operationId: changePassword
+      description: 'Set a new password by giving the current one. Keeps this session and ends every other one. 5 tries a minute per user.'
+      parameters:
+        -
+          in: header
+          name: X-XSRF-TOKEN
+          description: ''
+          example: '{XSRF_TOKEN}'
+          schema:
+            type: string
+      responses:
+        204:
+          description: 'Password changed'
+          content:
+            application/json:
+              schema:
+                type: object
+                nullable: true
+        401:
+          description: 'Not logged in'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+        422:
+          description: 'Wrong current password, or a missing or bad field'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'The password is incorrect.'
+                  errors:
+                    current_password:
+                      - 'The password is incorrect.'
+                properties:
+                  message:
+                    type: string
+                    example: 'The password is incorrect.'
+                  errors:
+                    type: object
+                    properties:
+                      current_password:
+                        type: array
+                        example:
+                          - 'The password is incorrect.'
+                        items:
+                          type: string
+        429:
+          description: 'More than 5 tries in a minute'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Too Many Attempts.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Too Many Attempts.'
+      tags:
+        - Account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                current_password:
+                  type: string
+                  description: 'Your password now.'
+                  example: old-secret-password
+                password:
+                  type: string
+                  description: 'The new password. Must differ from current_password.'
+                  example: correct-horse-battery
+                password_confirmation:
+                  type: string
+                  description: 'Must match password.'
+                  example: correct-horse-battery
+              required:
+                - current_password
+                - password
+                - password_confirmation
