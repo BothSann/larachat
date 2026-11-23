@@ -30,6 +30,26 @@ export const chatsSearchSchema = z.object({
 	verified: z.literal(1).optional().catch(undefined),
 });
 
+export const resetPasswordSchema = z
+	.object({
+		password: z.string().min(8, "Use at least 8 characters."),
+		password_confirmation: z.string(),
+	})
+	.refine((data) => data.password === data.password_confirmation, {
+		error: "Passwords don't match.",
+		path: ["password_confirmation"],
+	});
+
+export const loginSearchSchema = z.object({
+	reset: z.literal(1).optional().catch(undefined),
+});
+
+export const resetPasswordSearchSchema = z.object({
+	token: z.string().min(1).optional().catch(undefined),
+	email: z.email().optional().catch(undefined),
+});
+
 export type LoginInput = z.infer<typeof loginSchema>;
 export type RegisterInput = z.infer<typeof registerSchema>;
 export type ForgotPasswordInput = z.infer<typeof forgotPasswordSchema>;
+export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>;
