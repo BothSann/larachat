@@ -11,7 +11,7 @@ A person with an account: name, unique lowercase username, email, password.
 _Avoid_: Account, member (member is a group role)
 
 **Username**:
-A user's current `@handle`, which is how people find each other. A user can change it any time, even before they are verified. Changing it frees the old one for anyone to take straight away.
+A user's current `@handle`, which is how people find each other: people find a user only by the start of their username, never by name or email. A user can change it any time, even before they are verified. Changing it frees the old one for anyone to take straight away.
 _Avoid_: Handle, nickname, display name (that's the name)
 
 **Profile**:
@@ -31,7 +31,7 @@ The link in a password reset email. Only the newest one a user asked for works, 
 _Avoid_: Reset token (that's the secret inside the link), recovery link
 
 **Verified user**:
-A user who has proven they own their email by opening the link sent to it. Only verified users can find people or chat.
+A user who has proven they own their email by opening the link sent to it. Only verified users can find people or chat, and only verified users can be found.
 _Avoid_: Confirmed, activated
 
 **Unverified user**:
@@ -41,3 +41,17 @@ _Avoid_: Pending, inactive
 **Verification email**:
 The email holding the link that turns an Unverified user into a Verified user. A user can ask for it again until they are verified.
 _Avoid_: Welcome email, confirmation email
+
+### Conversations
+
+**Conversation**:
+A place where users exchange messages. It is either a Direct conversation or a Group conversation.
+_Avoid_: Chat (UI wording only, as in the `/chats` page), thread, room, channel (that's the realtime transport)
+
+**Direct conversation**:
+A conversation between exactly two users. Each pair of users has at most one.
+_Avoid_: DM, private chat, 1:1
+
+**Group conversation**:
+A conversation with a name, started by one user for several others.
+_Avoid_: Group chat, room, channel
