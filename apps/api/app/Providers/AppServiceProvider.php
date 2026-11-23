@@ -35,6 +35,9 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('forgot-password', fn (Request $request): Limit => Limit::perMinute(5)
             ->by($request->ip()));
 
+        RateLimiter::for('change-password', fn (Request $request): Limit => Limit::perMinute(5)
+            ->by($request->user()?->id ?: $request->ip()));
+
         ResetPassword::createUrlUsing(fn (User $user, string $token): string => config('app.frontend_url').'/reset-password?'.http_build_query([
             'token' => $token,
             'email' => $user->getEmailForPasswordReset(),
