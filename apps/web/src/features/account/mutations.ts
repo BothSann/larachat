@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { meQuery } from "#/features/auth/queries";
 import { api } from "#/lib/api-client";
-import type { ProfileInput } from "./schemas";
+import type { ChangePasswordInput, ProfileInput } from "./schemas";
 
 export function useUpdateProfile() {
 	const queryClient = useQueryClient();
@@ -15,6 +15,14 @@ export function useUpdateProfile() {
 		},
 		onSuccess: (user) => {
 			queryClient.setQueryData(meQuery.queryKey, user);
+		},
+	});
+}
+
+export function useChangePassword() {
+	return useMutation({
+		mutationFn: async (body: ChangePasswordInput) => {
+			await api.PUT("/api/v1/me/password", { body });
 		},
 	});
 }

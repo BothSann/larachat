@@ -179,6 +179,26 @@ export interface paths {
         patch: operations["updateCurrentUser"];
         trace?: never;
     };
+    "/api/v1/me/password": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Change password
+         * @description Set a new password by giving the current one. Keeps this session and ends every other one. 5 tries a minute per user.
+         */
+        put: operations["changePassword"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -330,7 +350,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m81xp340dgsf3r5rc9j2xqj2
+                             * @example 01m844gn3cqg2nc4kcenvazcx3
                              */
                             id: string;
                             /**
@@ -350,12 +370,12 @@ export interface operations {
                             email: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-22T15:23:36.000000Z
+                             * @example 2026-11-23T12:01:27.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-22T15:23:36.000000Z
+                             * @example 2026-11-23T12:01:27.000000Z
                              */
                             created_at: string;
                         };
@@ -413,7 +433,7 @@ export interface operations {
                     email: string;
                     /** @example |]|{+- */
                     password: string;
-                    /** @example false */
+                    /** @example true */
                     remember?: boolean;
                 };
             };
@@ -429,7 +449,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m81xp344pfc9hdfb7ertmk9q
+                             * @example 01m844gn3g9a4n9k7v4ekezgsc
                              */
                             id: string;
                             /**
@@ -449,12 +469,12 @@ export interface operations {
                             email: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-22T15:23:36.000000Z
+                             * @example 2026-11-23T12:01:27.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-22T15:23:36.000000Z
+                             * @example 2026-11-23T12:01:27.000000Z
                              */
                             created_at: string;
                         };
@@ -764,7 +784,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m81xp32xvt82fcx1101a37ex
+                             * @example 01m844gn28g1rsd5crsj9j1ttw
                              */
                             id: string;
                             /**
@@ -784,12 +804,12 @@ export interface operations {
                             email: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-22T15:23:36.000000Z
+                             * @example 2026-11-23T12:01:27.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-22T15:23:36.000000Z
+                             * @example 2026-11-23T12:01:27.000000Z
                              */
                             created_at: string;
                         };
@@ -847,7 +867,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m81xp33njhkmf6hgjb7695tj
+                             * @example 01m844gn2t7ffcdadykxt7aamq
                              */
                             id: string;
                             /**
@@ -867,12 +887,12 @@ export interface operations {
                             email: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-22T15:23:36.000000Z
+                             * @example 2026-11-23T12:01:27.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-22T15:23:36.000000Z
+                             * @example 2026-11-23T12:01:27.000000Z
                              */
                             created_at: string;
                         };
@@ -908,6 +928,93 @@ export interface operations {
                              */
                             username?: string[];
                         };
+                    };
+                };
+            };
+        };
+    };
+    changePassword: {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @example {XSRF_TOKEN} */
+                "X-XSRF-TOKEN"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /**
+                     * @description Your password now.
+                     * @example old-secret-password
+                     */
+                    current_password: string;
+                    /**
+                     * @description The new password. Must differ from current_password.
+                     * @example correct-horse-battery
+                     */
+                    password: string;
+                    /**
+                     * @description Must match password.
+                     * @example correct-horse-battery
+                     */
+                    password_confirmation: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Password changed */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never> | null;
+                };
+            };
+            /** @description Not logged in */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @example Unauthenticated. */
+                        message?: string;
+                    };
+                };
+            };
+            /** @description Wrong current password, or a missing or bad field */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @example The password is incorrect. */
+                        message?: string;
+                        errors?: {
+                            /**
+                             * @example [
+                             *       "The password is incorrect."
+                             *     ]
+                             */
+                            current_password?: string[];
+                        };
+                    };
+                };
+            };
+            /** @description More than 5 tries in a minute */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @example Too Many Attempts. */
+                        message?: string;
                     };
                 };
             };
