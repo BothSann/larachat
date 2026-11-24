@@ -1,6 +1,7 @@
-import { QueryClient } from "@tanstack/react-query";
+import { MutationCache, QueryCache, QueryClient } from "@tanstack/react-query";
 import { createRouter as createTanStackRouter } from "@tanstack/react-router";
 import { setupRouterSsrQueryIntegration } from "@tanstack/react-router-ssr-query";
+import { meQuery } from "./features/auth/queries";
 import { ApiError } from "./lib/api-error";
 import { routeTree } from "./routeTree.gen";
 
@@ -13,6 +14,8 @@ function shouldRetry(failureCount: number, error: Error) {
 
 export function getRouter() {
 	const queryClient = new QueryClient({
+		queryCache: new QueryCache({ onError: handleSessionEnded }),
+		mutationCache: new MutationCache({ onError: handleSessionEnded }),
 		defaultOptions: {
 			queries: { staleTime: 30_000, retry: shouldRetry },
 		},
@@ -25,6 +28,17 @@ export function getRouter() {
 		defaultPreload: "intent",
 		defaultPreloadStaleTime: 0,
 	});
+
+	function handleSessionEnded(error: Error): void {
+		if (!(error instanceof ApiError) || error.status !== 401) return;
+		if (queryClient.getQueryData(meQuery.queryKey) === undefined) return;
+
+		queryClient.clear();
+		void router.navigate({
+			to: "/login",
+			search: { redirect: router.state.location.href, ended: 1 },
+		});
+	}
 
 	setupRouterSsrQueryIntegration({ router, queryClient });
 

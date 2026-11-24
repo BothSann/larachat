@@ -42,6 +42,7 @@ export const resetPasswordSchema = z
 
 export const loginSearchSchema = z.object({
 	reset: z.literal(1).optional().catch(undefined),
+	ended: z.literal(1).optional().catch(undefined),
 });
 
 export const resetPasswordSearchSchema = z.object({

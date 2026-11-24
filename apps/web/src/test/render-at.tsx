@@ -36,8 +36,9 @@ export function fakeMe(signedIn: () => boolean) {
 
 // Renders the real route tree at `url` with a fresh QueryClient.
 export async function renderAt(url: string) {
+	// Same staleTime as src/router.tsx, so a just-set `me` counts as fresh.
 	const queryClient = new QueryClient({
-		defaultOptions: { queries: { retry: false } },
+		defaultOptions: { queries: { retry: false, staleTime: 30_000 } },
 	});
 	const router = createRouter({
 		routeTree,
