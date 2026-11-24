@@ -118,6 +118,21 @@ describe("session ended in another tab", () => {
 		});
 	});
 
+	it("preloading a link with a stale me re-checks it in the guard", async () => {
+		vi.useFakeTimers({ toFake: ["Date"] });
+		const session = fakeSession();
+		const { router } = await renderApp("/profile");
+		await screen.findByRole("heading", { name: "Profile" });
+		const before = session.meCalls;
+
+		vi.setSystemTime(Date.now() + 31_000);
+		// Hovering a link runs beforeLoad without mounting the page.
+		await router.preloadRoute({ to: "/chats" });
+
+		await waitFor(() => expect(session.meCalls).toBe(before + 1));
+		expect(router.state.location.pathname).toBe("/profile");
+	});
+
 	it("a 500 on the me refetch does not log the tab out", async () => {
 		fakeSession();
 		const { router, queryClient } = await renderApp("/profile");
@@ -129,7 +144,7 @@ describe("session ended in another tab", () => {
 		);
 		// The app retries a 5xx 3 times with a delay; skip that here.
 		await expect(
-			queryClient.fetchQuery({ ...meQuery, staleTime: 0, retry: false }),
+			queryClient.query({ ...meQuery, staleTime: 0, retry: false }),
 		).rejects.toThrow("Server Error");
 
 		expect(router.state.location.pathname).toBe("/profile");

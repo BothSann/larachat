@@ -12,7 +12,8 @@ General patterns: `tanstack-router-practices`, auth flow in `tanstack-integratio
 | `src/routes/_guest/` | `/login`, `/register`, later `/forgot-password`, `/reset-password` | Logged in → `redirect` to `search.redirect` or `/chats` |
 | `src/routes/_app/` | `/chats`, `/chats/$conversationId` | Logged out (`ApiError` 401) → `redirect` to `/login?redirect=<current href>` |
 
-- Both guards read the user with `context.queryClient.ensureQueryData(meQuery)` (see [web-data.md](web-data.md)). Never call `fetch` in a guard.
+- Both guards read the user with `context.queryClient.query({ ...meQuery, staleTime: "static" })`: cached data at once, a fetch only on a miss (see [web-data.md](web-data.md)). `_app` then starts `void context.queryClient.query(meQuery).catch(() => {})` to re-check a stale user in the background. Never call `fetch` in a guard.
+- Don't use `ensureQueryData`, `fetchQuery` or `prefetchQuery`: they are deprecated in Query 5.107 and removed in v6 (`tanstack-integration-practices` → `flow-loader-query-pattern`).
 - Guards are UX only. Laravel's `auth:sanctum` and Policies are the real security.
 - Both layouts use `ssr: false` ([web-start.md](web-start.md)).
 
