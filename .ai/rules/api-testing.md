@@ -2,7 +2,7 @@
 
 A feature is done when its tests prove every acceptance criterion, including every refusal.
 
-- Feature tests per endpoint in `tests/Feature/Api/V1/<Area>/<Action>Test.php`.
+- Feature tests per endpoint in `tests/Feature/<Area>/<Action>Test.php`.
 - Each endpoint tests: happy path, validation (422), not logged in (401), not allowed (403/404), rate limit where set (429), idempotent repeat where relevant.
 - Assert status **and** JSON shape (`assertJsonPath`, `assertExactJsonStructure` for resources).
 - Assert database state (`assertDatabaseHas`, counts) after writes.
