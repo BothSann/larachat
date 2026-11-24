@@ -199,6 +199,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/users": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Search users
+         * @description Find verified users by the start of their username, in username order. Never finds you. 60 searches a minute per user.
+         */
+        get: operations["searchUsers"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -350,7 +370,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m844gn3cqg2nc4kcenvazcx3
+                             * @example 01m86zetrpwzhy0854ykm0w36m
                              */
                             id: string;
                             /**
@@ -370,12 +390,12 @@ export interface operations {
                             email: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-23T12:01:27.000000Z
+                             * @example 2026-11-24T14:30:48.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-23T12:01:27.000000Z
+                             * @example 2026-11-24T14:30:48.000000Z
                              */
                             created_at: string;
                         };
@@ -449,7 +469,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m844gn3g9a4n9k7v4ekezgsc
+                             * @example 01m86zets1dhh7w52yp3qzmfyy
                              */
                             id: string;
                             /**
@@ -469,12 +489,12 @@ export interface operations {
                             email: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-23T12:01:27.000000Z
+                             * @example 2026-11-24T14:30:48.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-23T12:01:27.000000Z
+                             * @example 2026-11-24T14:30:48.000000Z
                              */
                             created_at: string;
                         };
@@ -784,7 +804,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m844gn28g1rsd5crsj9j1ttw
+                             * @example 01m86zetp8xvhab5h33t13z515
                              */
                             id: string;
                             /**
@@ -804,12 +824,12 @@ export interface operations {
                             email: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-23T12:01:27.000000Z
+                             * @example 2026-11-24T14:30:48.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-23T12:01:27.000000Z
+                             * @example 2026-11-24T14:30:48.000000Z
                              */
                             created_at: string;
                         };
@@ -867,7 +887,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m844gn2t7ffcdadykxt7aamq
+                             * @example 01m86zetq7hwym3xesa5h195q9
                              */
                             id: string;
                             /**
@@ -887,12 +907,12 @@ export interface operations {
                             email: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-23T12:01:27.000000Z
+                             * @example 2026-11-24T14:30:48.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-23T12:01:27.000000Z
+                             * @example 2026-11-24T14:30:48.000000Z
                              */
                             created_at: string;
                         };
@@ -1007,6 +1027,155 @@ export interface operations {
                 };
             };
             /** @description More than 5 tries in a minute */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @example Too Many Attempts. */
+                        message?: string;
+                    };
+                };
+            };
+        };
+    };
+    searchUsers: {
+        parameters: {
+            query: {
+                /**
+                 * @description 2 to 30 letters, numbers, or underscores. Trimmed and lowercased, and one leading @ is removed.
+                 * @example bo
+                 */
+                search: string;
+                /**
+                 * @description Users per page, 1 to 100. Default 30.
+                 * @example 30
+                 */
+                per_page?: number;
+                /**
+                 * @description next_cursor or prev_cursor from the page before. Leave out for page 1.
+                 * @example null
+                 */
+                cursor?: string;
+            };
+            header?: {
+                /** @example {XSRF_TOKEN} */
+                "X-XSRF-TOKEN"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description One page of users */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @example [
+                         *       {
+                         *         "id": "01m86zetqpt5xg90egphkcgf94",
+                         *         "name": "Ms. Elisabeth Okuneva",
+                         *         "username": "i9__kfao_f"
+                         *       },
+                         *       {
+                         *         "id": "01m86zetqr0d177c138kw5sbt6",
+                         *         "name": "Mr. Oswald Koch",
+                         *         "username": "o_75_mdi6"
+                         *       }
+                         *     ]
+                         */
+                        data?: {
+                            /**
+                             * @description ULID.
+                             * @example 01m86zetqpt5xg90egphkcgf94
+                             */
+                            id: string;
+                            /**
+                             * @description Display name.
+                             * @example Ms. Elisabeth Okuneva
+                             */
+                            name: string;
+                            /**
+                             * @description Lowercase @handle, unique.
+                             * @example i9__kfao_f
+                             */
+                            username: string;
+                        }[];
+                        links?: {
+                            /** @example null */
+                            first?: string | null;
+                            /** @example null */
+                            last?: string | null;
+                            /** @example null */
+                            prev?: string | null;
+                            /** @example null */
+                            next?: string | null;
+                        };
+                        meta?: {
+                            /** @example / */
+                            path?: string;
+                            /** @example 30 */
+                            per_page?: number;
+                            /** @example null */
+                            next_cursor?: string | null;
+                            /** @example null */
+                            prev_cursor?: string | null;
+                        };
+                    };
+                };
+            };
+            /** @description Not logged in */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @example Unauthenticated. */
+                        message?: string;
+                    };
+                };
+            };
+            /** @description Email not verified */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @example Your email address is not verified. */
+                        message?: string;
+                        /** @example email_not_verified */
+                        code?: string;
+                    };
+                };
+            };
+            /** @description A missing or bad search, page size, or cursor */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @example The search field is required. */
+                        message?: string;
+                        errors?: {
+                            /**
+                             * @example [
+                             *       "The search field is required."
+                             *     ]
+                             */
+                            search?: string[];
+                        };
+                    };
+                };
+            };
+            /** @description More than 60 searches in a minute */
             429: {
                 headers: {
                     [name: string]: unknown;
