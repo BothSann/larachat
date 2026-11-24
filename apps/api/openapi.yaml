@@ -13,6 +13,9 @@ tags:
   -
     name: Account
     description: 'The logged-in user.'
+  -
+    name: People
+    description: 'Finding other users.'
 components:
   securitySchemes:
     default:
@@ -137,19 +140,19 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m844gn3cqg2nc4kcenvazcx3
+                    id: 01m86zetrpwzhy0854ykm0w36m
                     name: 'Mrs. Justina Gaylord'
                     username: deltvi9__k
                     email: theo.hauck@example.com
-                    email_verified_at: '2026-11-23T12:01:27.000000Z'
-                    created_at: '2026-11-23T12:01:27.000000Z'
+                    email_verified_at: '2026-11-24T14:30:48.000000Z'
+                    created_at: '2026-11-24T14:30:48.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: string
-                        example: 01m844gn3cqg2nc4kcenvazcx3
+                        example: 01m86zetrpwzhy0854ykm0w36m
                         description: ULID.
                       name:
                         type: string
@@ -165,12 +168,12 @@ paths:
                         description: 'Email address, unique.'
                       email_verified_at:
                         type: string
-                        example: '2026-11-23T12:01:27.000000Z'
+                        example: '2026-11-24T14:30:48.000000Z'
                         description: 'ISO 8601 UTC. Null until the email is verified.'
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-23T12:01:27.000000Z'
+                        example: '2026-11-24T14:30:48.000000Z'
                         description: 'ISO 8601 UTC.'
                     required:
                       - id
@@ -266,19 +269,19 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m844gn3g9a4n9k7v4ekezgsc
+                    id: 01m86zets1dhh7w52yp3qzmfyy
                     name: 'Mrs. Justina Gaylord'
                     username: _folydlym
                     email: carey67@example.com
-                    email_verified_at: '2026-11-23T12:01:27.000000Z'
-                    created_at: '2026-11-23T12:01:27.000000Z'
+                    email_verified_at: '2026-11-24T14:30:48.000000Z'
+                    created_at: '2026-11-24T14:30:48.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: string
-                        example: 01m844gn3g9a4n9k7v4ekezgsc
+                        example: 01m86zets1dhh7w52yp3qzmfyy
                         description: ULID.
                       name:
                         type: string
@@ -294,12 +297,12 @@ paths:
                         description: 'Email address, unique.'
                       email_verified_at:
                         type: string
-                        example: '2026-11-23T12:01:27.000000Z'
+                        example: '2026-11-24T14:30:48.000000Z'
                         description: 'ISO 8601 UTC. Null until the email is verified.'
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-23T12:01:27.000000Z'
+                        example: '2026-11-24T14:30:48.000000Z'
                         description: 'ISO 8601 UTC.'
                     required:
                       - id
@@ -664,19 +667,19 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m844gn28g1rsd5crsj9j1ttw
+                    id: 01m86zetp8xvhab5h33t13z515
                     name: 'Morgan Hirthe'
                     username: folydlymqh9m
                     email: sleffler@example.org
-                    email_verified_at: '2026-11-23T12:01:27.000000Z'
-                    created_at: '2026-11-23T12:01:27.000000Z'
+                    email_verified_at: '2026-11-24T14:30:48.000000Z'
+                    created_at: '2026-11-24T14:30:48.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: string
-                        example: 01m844gn28g1rsd5crsj9j1ttw
+                        example: 01m86zetp8xvhab5h33t13z515
                         description: ULID.
                       name:
                         type: string
@@ -692,12 +695,12 @@ paths:
                         description: 'Email address, unique.'
                       email_verified_at:
                         type: string
-                        example: '2026-11-23T12:01:27.000000Z'
+                        example: '2026-11-24T14:30:48.000000Z'
                         description: 'ISO 8601 UTC. Null until the email is verified.'
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-23T12:01:27.000000Z'
+                        example: '2026-11-24T14:30:48.000000Z'
                         description: 'ISO 8601 UTC.'
                     required:
                       - id
@@ -741,19 +744,19 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m844gn2t7ffcdadykxt7aamq
+                    id: 01m86zetq7hwym3xesa5h195q9
                     name: 'Ms. Elisabeth Okuneva'
                     username: ka6z34de
                     email: cormier.nick@example.com
-                    email_verified_at: '2026-11-23T12:01:27.000000Z'
-                    created_at: '2026-11-23T12:01:27.000000Z'
+                    email_verified_at: '2026-11-24T14:30:48.000000Z'
+                    created_at: '2026-11-24T14:30:48.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: string
-                        example: 01m844gn2t7ffcdadykxt7aamq
+                        example: 01m86zetq7hwym3xesa5h195q9
                         description: ULID.
                       name:
                         type: string
@@ -769,12 +772,12 @@ paths:
                         description: 'Email address, unique.'
                       email_verified_at:
                         type: string
-                        example: '2026-11-23T12:01:27.000000Z'
+                        example: '2026-11-24T14:30:48.000000Z'
                         description: 'ISO 8601 UTC. Null until the email is verified.'
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-23T12:01:27.000000Z'
+                        example: '2026-11-24T14:30:48.000000Z'
                         description: 'ISO 8601 UTC.'
                     required:
                       - id
@@ -930,3 +933,206 @@ paths:
                 - current_password
                 - password
                 - password_confirmation
+  /api/v1/users:
+    get:
+      summary: 'Search users'
+      operationId: searchUsers
+      description: 'Find verified users by the start of their username, in username order. Never finds you. 60 searches a minute per user.'
+      parameters:
+        -
+          in: query
+          name: search
+          description: '2 to 30 letters, numbers, or underscores. Trimmed and lowercased, and one leading @ is removed.'
+          example: bo
+          required: true
+          schema:
+            type: string
+            description: '2 to 30 letters, numbers, or underscores. Trimmed and lowercased, and one leading @ is removed.'
+            example: bo
+        -
+          in: query
+          name: per_page
+          description: 'Users per page, 1 to 100. Default 30.'
+          example: 30
+          required: false
+          schema:
+            type: integer
+            description: 'Users per page, 1 to 100. Default 30.'
+            example: 30
+        -
+          in: query
+          name: cursor
+          description: 'next_cursor or prev_cursor from the page before. Leave out for page 1.'
+          example: null
+          required: false
+          schema:
+            type: string
+            description: 'next_cursor or prev_cursor from the page before. Leave out for page 1.'
+            example: null
+        -
+          in: header
+          name: X-XSRF-TOKEN
+          description: ''
+          example: '{XSRF_TOKEN}'
+          schema:
+            type: string
+      responses:
+        200:
+          description: 'One page of users'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 01m86zetqpt5xg90egphkcgf94
+                      name: 'Ms. Elisabeth Okuneva'
+                      username: i9__kfao_f
+                    -
+                      id: 01m86zetqr0d177c138kw5sbt6
+                      name: 'Mr. Oswald Koch'
+                      username: o_75_mdi6
+                  links:
+                    first: null
+                    last: null
+                    prev: null
+                    next: null
+                  meta:
+                    path: /
+                    per_page: 30
+                    next_cursor: null
+                    prev_cursor: null
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 01m86zetqpt5xg90egphkcgf94
+                        name: 'Ms. Elisabeth Okuneva'
+                        username: i9__kfao_f
+                      -
+                        id: 01m86zetqr0d177c138kw5sbt6
+                        name: 'Mr. Oswald Koch'
+                        username: o_75_mdi6
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: 01m86zetqpt5xg90egphkcgf94
+                          description: ULID.
+                        name:
+                          type: string
+                          example: 'Ms. Elisabeth Okuneva'
+                          description: 'Display name.'
+                        username:
+                          type: string
+                          example: i9__kfao_f
+                          description: 'Lowercase @handle, unique.'
+                      required:
+                        - id
+                        - name
+                        - username
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                        example: null
+                        nullable: true
+                      last:
+                        type: string
+                        example: null
+                        nullable: true
+                      prev:
+                        type: string
+                        example: null
+                        nullable: true
+                      next:
+                        type: string
+                        example: null
+                        nullable: true
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type: string
+                        example: /
+                      per_page:
+                        type: integer
+                        example: 30
+                      next_cursor:
+                        type: string
+                        example: null
+                        nullable: true
+                      prev_cursor:
+                        type: string
+                        example: null
+                        nullable: true
+        401:
+          description: 'Not logged in'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+        403:
+          description: 'Email not verified'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Your email address is not verified.'
+                  code: email_not_verified
+                properties:
+                  message:
+                    type: string
+                    example: 'Your email address is not verified.'
+                  code:
+                    type: string
+                    example: email_not_verified
+        422:
+          description: 'A missing or bad search, page size, or cursor'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'The search field is required.'
+                  errors:
+                    search:
+                      - 'The search field is required.'
+                properties:
+                  message:
+                    type: string
+                    example: 'The search field is required.'
+                  errors:
+                    type: object
+                    properties:
+                      search:
+                        type: array
+                        example:
+                          - 'The search field is required.'
+                        items:
+                          type: string
+        429:
+          description: 'More than 60 searches in a minute'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Too Many Attempts.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Too Many Attempts.'
+      tags:
+        - People
