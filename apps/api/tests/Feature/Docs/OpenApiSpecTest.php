@@ -57,6 +57,7 @@ it('lists every status code each endpoint can answer', function (string $method,
     'forgot password' => ['post', '/api/v1/auth/forgot-password', [202, 403, 422, 429]],
     'reset password' => ['post', '/api/v1/auth/reset-password', [204, 403, 422, 429]],
     'change password' => ['put', '/api/v1/me/password', [204, 401, 422, 429]],
+    'search users' => ['get', '/api/v1/users', [200, 401, 403, 422, 429]],
 ]);
 
 it('marks only the auth:sanctum routes as authenticated', function (string $method, string $path, bool $authenticated): void {
@@ -73,6 +74,7 @@ it('marks only the auth:sanctum routes as authenticated', function (string $meth
     'forgot password' => ['post', '/api/v1/auth/forgot-password', false],
     'reset password' => ['post', '/api/v1/auth/reset-password', false],
     'change password' => ['put', '/api/v1/me/password', true],
+    'search users' => ['get', '/api/v1/users', true],
 ]);
 
 it('describes the user with every UserResource key', function (string $method, string $path, int $status): void {
