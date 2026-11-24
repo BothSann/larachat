@@ -26,6 +26,10 @@ _Avoid_: Password recovery, forgot password (that's only the first half)
 Setting a new password while logged in, by giving the current password first. It ends every other session the user has and keeps the one they used to make the change.
 _Avoid_: Password reset (that's the emailed-link flow for a forgotten password), update password
 
+**Session**:
+One login on one browser. It ends when the user logs out, resets their password, or changes their password in another session.
+_Avoid_: Login (that's the act of starting one), token
+
 **Reset link**:
 The link in a password reset email. Only the newest one a user asked for works, it expires after 60 minutes, and it works once. Asking for it gives the same answer whether the email has an account or not.
 _Avoid_: Reset token (that's the secret inside the link), recovery link
