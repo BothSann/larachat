@@ -60,7 +60,7 @@ Also follow Laravel Boost guidelines in `apps/api/CLAUDE.md` and the `laravel-ap
 | `forgot-password`           | 5/min per IP (the broker adds 1 email per address per 60s) |
 | `change-password`           | 5/min per user                                             |
 | `messages`                  | 30/min per user                                            |
-| `search`                    | 60/min per user                                            |
+| `user-search`               | 60/min per user                                            |
 | `api`                       | 120/min per user/IP                                        |
 
 ## Config and secrets
