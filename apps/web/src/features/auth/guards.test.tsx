@@ -41,8 +41,9 @@ function signedOut() {
 }
 
 async function renderAt(url: string) {
+	// Same staleTime as src/router.tsx, so a just-fetched `me` counts as fresh.
 	const queryClient = new QueryClient({
-		defaultOptions: { queries: { retry: false } },
+		defaultOptions: { queries: { retry: false, staleTime: 30_000 } },
 	});
 	const router = createRouter({
 		routeTree,

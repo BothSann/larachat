@@ -9,7 +9,10 @@ export const Route = createFileRoute("/_guest")({
 	validateSearch: guestSearchSchema,
 	beforeLoad: async ({ context, search }) => {
 		const user = await context.queryClient
-			.ensureQueryData(meQuery)
+			.query({
+				...meQuery,
+				staleTime: "static",
+			})
 			.catch((error: unknown) => {
 				if (error instanceof ApiError && error.status === 401) return null;
 				throw error;
