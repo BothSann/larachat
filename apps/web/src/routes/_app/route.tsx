@@ -7,7 +7,10 @@ export const Route = createFileRoute("/_app")({
 	ssr: false,
 	beforeLoad: async ({ context, location }) => {
 		try {
-			await context.queryClient.ensureQueryData(meQuery);
+			await context.queryClient.ensureQueryData({
+				...meQuery,
+				revalidateIfStale: true,
+			});
 		} catch (error) {
 			if (error instanceof ApiError && error.status === 401) {
 				throw redirect({

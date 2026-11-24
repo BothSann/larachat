@@ -3,20 +3,24 @@ import { Button } from "#/components/ui/button";
 import { LoginForm } from "#/features/auth/components/login-form";
 import { loginSearchSchema } from "#/features/auth/schemas";
 
+const RESET_NOTE = "Your password is reset. Log in with your new password.";
+const ENDED_NOTE = "Your session ended. Log in again.";
+
 export const Route = createFileRoute("/_guest/login")({
 	validateSearch: loginSearchSchema,
 	component: Login,
 });
 
 function Login() {
-	const { redirect, reset } = Route.useSearch();
+	const { redirect, reset, ended } = Route.useSearch();
 	const navigate = useNavigate();
+	const note = reset ? RESET_NOTE : ended ? ENDED_NOTE : null;
 
 	return (
 		<main className="p-8">
-			{reset && (
+			{note && (
 				<div role="status" className="mb-4 flex items-center gap-3">
-					<p>Your password is reset. Log in with your new password.</p>
+					<p>{note}</p>
 					<Button
 						variant="outline"
 						size="sm"
