@@ -32,7 +32,7 @@ final class SearchUsersRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'search' => ['bail', 'required', 'string', 'regex:/^[a-z0-9_]{2,30}$/'],
+            'search' => ['bail', 'nullable', 'string', 'regex:/^[a-z0-9_]{2,30}$/'],
             'per_page' => ['sometimes', 'integer', 'between:1,100'],
             'cursor' => ['bail', 'nullable', 'string', new UsernameCursor],
         ];
@@ -49,7 +49,7 @@ final class SearchUsersRequest extends FormRequest
     public function toDto(): SearchUsersData
     {
         return new SearchUsersData(
-            search: $this->string('search')->toString(),
+            search: $this->filled('search') ? $this->string('search')->toString() : null,
             perPage: $this->integer('per_page', 30),
         );
     }
