@@ -208,7 +208,7 @@ export interface paths {
         };
         /**
          * Search users
-         * @description Find verified users by the start of their username, in username order. Never finds you. 60 searches a minute per user.
+         * @description List verified users in username order, or only those whose username starts with the search. Never lists you. 60 requests a minute per user.
          */
         get: operations["searchUsers"];
         put?: never;
@@ -370,7 +370,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m86zetrpwzhy0854ykm0w36m
+                             * @example 01m8b804ek92fh221pj1jk0rmh
                              */
                             id: string;
                             /**
@@ -390,12 +390,12 @@ export interface operations {
                             email: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-24T14:30:48.000000Z
+                             * @example 2026-11-26T06:17:01.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-24T14:30:48.000000Z
+                             * @example 2026-11-26T06:17:01.000000Z
                              */
                             created_at: string;
                         };
@@ -469,7 +469,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m86zets1dhh7w52yp3qzmfyy
+                             * @example 01m8b804eqemn12zjvq2y1wayr
                              */
                             id: string;
                             /**
@@ -489,12 +489,12 @@ export interface operations {
                             email: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-24T14:30:48.000000Z
+                             * @example 2026-11-26T06:17:01.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-24T14:30:48.000000Z
+                             * @example 2026-11-26T06:17:01.000000Z
                              */
                             created_at: string;
                         };
@@ -804,7 +804,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m86zetp8xvhab5h33t13z515
+                             * @example 01m8b804d1s9sy1hg6djg3xj59
                              */
                             id: string;
                             /**
@@ -824,12 +824,12 @@ export interface operations {
                             email: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-24T14:30:48.000000Z
+                             * @example 2026-11-26T06:17:01.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-24T14:30:48.000000Z
+                             * @example 2026-11-26T06:17:01.000000Z
                              */
                             created_at: string;
                         };
@@ -887,7 +887,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m86zetq7hwym3xesa5h195q9
+                             * @example 01m8b804e0sjmwkv7zqcbb8gqg
                              */
                             id: string;
                             /**
@@ -907,12 +907,12 @@ export interface operations {
                             email: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-24T14:30:48.000000Z
+                             * @example 2026-11-26T06:17:01.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-24T14:30:48.000000Z
+                             * @example 2026-11-26T06:17:01.000000Z
                              */
                             created_at: string;
                         };
@@ -1042,12 +1042,12 @@ export interface operations {
     };
     searchUsers: {
         parameters: {
-            query: {
+            query?: {
                 /**
-                 * @description 2 to 30 letters, numbers, or underscores. Trimmed and lowercased, and one leading @ is removed.
+                 * @description Start of a username: 2 to 30 letters, numbers, or underscores. Trimmed and lowercased, and one leading @ is removed. Leave out, or send empty, to list everyone.
                  * @example bo
                  */
-                search: string;
+                search?: string;
                 /**
                  * @description Users per page, 1 to 100. Default 30.
                  * @example 30
@@ -1078,12 +1078,12 @@ export interface operations {
                         /**
                          * @example [
                          *       {
-                         *         "id": "01m86zetqpt5xg90egphkcgf94",
+                         *         "id": "01m8b804eb4aq6apkckjhaddxd",
                          *         "name": "Ms. Elisabeth Okuneva",
                          *         "username": "i9__kfao_f"
                          *       },
                          *       {
-                         *         "id": "01m86zetqr0d177c138kw5sbt6",
+                         *         "id": "01m8b804edqjszbh0w2e2j4xkz",
                          *         "name": "Mr. Oswald Koch",
                          *         "username": "o_75_mdi6"
                          *       }
@@ -1092,7 +1092,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m86zetqpt5xg90egphkcgf94
+                             * @example 01m8b804eb4aq6apkckjhaddxd
                              */
                             id: string;
                             /**
@@ -1155,19 +1155,19 @@ export interface operations {
                     };
                 };
             };
-            /** @description A missing or bad search, page size, or cursor */
+            /** @description A bad search, page size, or cursor */
             422: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
                     "application/json": {
-                        /** @example The search field is required. */
+                        /** @example The search must be 2 to 30 letters, numbers, or underscores. */
                         message?: string;
                         errors?: {
                             /**
                              * @example [
-                             *       "The search field is required."
+                             *       "The search must be 2 to 30 letters, numbers, or underscores."
                              *     ]
                              */
                             search?: string[];

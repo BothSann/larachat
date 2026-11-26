@@ -104,16 +104,45 @@ it('treats an underscore as an underscore', function (): void {
     expect(foundUsernames($response))->toBe(['b_x']);
 });
 
+it('lists every verified user but the caller when there is no search', function (array $query): void {
+    searchUser('cat');
+    searchUser('bob');
+    User::factory()->unverified()->create(['username' => 'dan']);
+
+    $response = $this->actingAs($this->ann)->getJson(searchUsersUrl($query))->assertOk();
+
+    expect(foundUsernames($response))->toBe(['bob', 'cat']);
+})->with([
+    'missing' => [[]],
+    'empty' => [['search' => '']],
+    'only spaces' => [['search' => '   ']],
+    'only an @' => [['search' => '@']],
+]);
+
+it('pages through everyone with no search, keeping the page size', function (): void {
+    foreach (['cat', 'bob', 'bora'] as $username) {
+        searchUser($username);
+    }
+
+    $first = $this->actingAs($this->ann)->getJson(searchUsersUrl(['per_page' => 2]))->assertOk();
+    $next = $first->json('links.next');
+
+    expect($next)->toContain('per_page=2')
+        ->and(foundUsernames($first))->toBe(['bob', 'bora']);
+
+    $second = $this->getJson($next)->assertOk();
+
+    expect(foundUsernames($second))->toBe(['cat'])
+        ->and($second->json('meta.next_cursor'))->toBeNull();
+});
+
 it('rejects a bad search', function (array $query): void {
     $this->actingAs($this->ann)->getJson(searchUsersUrl($query))
         ->assertUnprocessable()
         ->assertOnlyJsonValidationErrors(['search']);
 })->with([
-    'missing' => [[]],
-    'empty' => [['search' => '']],
     'one letter' => [['search' => 'b']],
     'one letter after the @' => [['search' => '@b']],
-    'only an @' => [['search' => '@']],
     'two @' => [['search' => '@@bo']],
     'a percent sign' => [['search' => 'b%']],
     '31 letters' => [['search' => str_repeat('b', 31)]],
