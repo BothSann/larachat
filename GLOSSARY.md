@@ -73,3 +73,7 @@ _Avoid_: DM, private chat, 1:1
 **Group conversation**:
 A conversation with a name, started by one user for several others.
 _Avoid_: Group chat, room, channel
+
+**Participant**:
+A user who belongs to a conversation. In a group conversation they are an owner, an admin or a member. In a direct conversation both users are members and nobody is the owner.
+_Avoid_: Member (that's a role), user (too broad)
