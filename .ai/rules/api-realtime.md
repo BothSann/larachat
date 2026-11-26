@@ -19,6 +19,7 @@ The database is the truth. Reverb is only the fast way to say "something changed
 |---|---|---|
 | `conversation.{conversation}` | private | user is a participant |
 | `conversation.{conversation}` | presence | user is a participant; return `['id', 'name', 'username']` only |
+| `online` | presence | user is verified; return `['id', 'name', 'username']` only |
 | `user.{id}` | private | `$user->id === $id` |
 
 - Channel checks reuse the Policy (`$user->can('view', $conversation)`). No duplicated logic.
