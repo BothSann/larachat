@@ -1,9 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import { getRouteApi } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { TextField } from "#/components/text-field";
+import { Button } from "#/components/ui/button";
 import { ApiError } from "#/lib/api-error";
-import { searchPeopleQuery } from "../queries";
+import { peopleQuery } from "../queries";
 import { MIN_SEARCH_LENGTH, normalizeSearch } from "../schemas";
 import { PeopleList } from "./people-list";
 
@@ -14,7 +15,15 @@ export function SearchPeople() {
 	const { q } = chatsRoute.useSearch();
 	const navigate = chatsRoute.useNavigate();
 	const [text, setText] = useState(q ?? "");
-	const search = useQuery(searchPeopleQuery(q));
+	const people = useInfiniteQuery(peopleQuery(q));
+	const queryClient = useQueryClient();
+
+	useEffect(() => {
+		queryClient.removeQueries({
+			queryKey: ["people", "list"],
+			predicate: (query) => query.queryKey[2] !== (q ?? ""),
+		});
+	}, [q, queryClient]);
 
 	useEffect(() => {
 		const next = normalizeSearch(text) || undefined;
@@ -26,23 +35,53 @@ export function SearchPeople() {
 		return () => clearTimeout(timer);
 	}, [text, q, navigate]);
 
+	function loadMore() {
+		if (people.hasNextPage && !people.isFetching) void people.fetchNextPage();
+	}
+
 	const fieldError =
-		search.error instanceof ApiError && search.error.status === 422
-			? search.error.errors.search?.[0]
+		people.error instanceof ApiError && people.error.status === 422
+			? people.error.errors.search?.[0]
 			: undefined;
 
 	function renderResults() {
-		if (!q) return <p>Search for a username to find people.</p>;
-		if (q.length < MIN_SEARCH_LENGTH) return <p>Type at least 2 characters.</p>;
-		if (search.isLoading) return <p>Searching…</p>;
-		if (search.error) {
-			return fieldError ? null : (
-				<p role="alert" className="text-destructive text-sm">
-					{errorText(search.error)}
-				</p>
-			);
+		if (q && q.length < MIN_SEARCH_LENGTH) {
+			return <p>Type at least 2 characters.</p>;
 		}
-		return search.data ? <PeopleList {...search.data} /> : null;
+		if (people.isLoading) return <p>Loading people…</p>;
+		if (!people.data) {
+			return people.error && !fieldError ? (
+				<p role="alert" className="text-destructive text-sm">
+					{errorText(people.error)}
+				</p>
+			) : null;
+		}
+
+		return (
+			<div className={people.isPlaceholderData ? "opacity-60" : undefined}>
+				<PeopleList
+					people={people.data.pages.flatMap((page) => page.people)}
+					q={q}
+				/>
+				{people.hasNextPage && (
+					<div className="mt-3 flex items-center gap-3">
+						<Button
+							variant="outline"
+							disabled={people.isFetching}
+							onClick={loadMore}
+						>
+							{people.isFetchingNextPage ? "Loading…" : "Load more"}
+						</Button>
+
+						{people.isFetchNextPageError && (
+							<p role="alert" className="text-destructive text-sm">
+								{errorText(people.error)}
+							</p>
+						)}
+					</div>
+				)}
+			</div>
+		);
 	}
 
 	return (

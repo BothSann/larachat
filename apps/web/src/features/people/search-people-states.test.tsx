@@ -11,10 +11,32 @@ import {
 } from "#/test/people";
 import { ada, renderAt } from "#/test/render-at";
 
-const HINT = "Search for a username to find people.";
 const field = () => screen.findByLabelText<HTMLInputElement>("Find people");
+const rowTexts = () =>
+	screen.getAllByRole("listitem").map((row) => row.textContent);
 
-describe("search on /chats", () => {
+describe("People on /chats", () => {
+	it("without q, lists everyone and sends no search", async () => {
+		fakeMeIs(verifiedAda);
+		const searches = fakeUsers(() => page([bob, bobby]));
+
+		await renderAt("/chats");
+
+		expect(await screen.findByText("@bobby")).toBeTruthy();
+		expect(rowTexts()).toEqual(["Bob@bob", "Bobby Tables@bobby"]);
+		expect(searches).toEqual([null]);
+		expect((await field()).value).toBe("");
+	});
+
+	it("without q and no one else, says so", async () => {
+		fakeMeIs(verifiedAda);
+		fakeUsers(() => page([]));
+
+		await renderAt("/chats");
+
+		expect(await screen.findByText("No one else is here yet.")).toBeTruthy();
+	});
+
 	it("fills the field from the URL and searches at once", async () => {
 		fakeMeIs(verifiedAda);
 		const searches = fakeUsers(() => page([bob, bobby]));
@@ -23,30 +45,21 @@ describe("search on /chats", () => {
 
 		expect((await field()).value).toBe("bo");
 		expect(await screen.findByText("@bob")).toBeTruthy();
-		const rows = screen.getAllByRole("listitem").map((r) => r.textContent);
-		expect(rows).toEqual(["Bob@bob", "Bobby Tables@bobby"]);
+		expect(rowTexts()).toEqual(["Bob@bob", "Bobby Tables@bobby"]);
 		expect(searches).toEqual(["bo"]);
 	});
 
-	it("searches a number from the URL as text", async () => {
+	it("searches a number from the URL as text, and names it when empty", async () => {
 		fakeMeIs(verifiedAda);
 		const searches = fakeUsers(() => page([]));
 
 		await renderAt("/chats?q=42");
 
-		expect(await screen.findByText("No one found.")).toBeTruthy();
+		expect(
+			await screen.findByText('No usernames start with "42".'),
+		).toBeTruthy();
 		expect(searches).toEqual(["42"]);
 		expect((await field()).value).toBe("42");
-	});
-
-	it("shows the hint and sends nothing without q", async () => {
-		fakeMeIs(verifiedAda);
-		const searches = fakeUsers(() => page([]));
-
-		await renderAt("/chats");
-
-		expect(await screen.findByText(HINT)).toBeTruthy();
-		expect(searches).toEqual([]);
 	});
 
 	it("asks for 2 characters and sends nothing for 1", async () => {
@@ -59,29 +72,18 @@ describe("search on /chats", () => {
 		expect(searches).toEqual([]);
 	});
 
-	it("shows Searching… on the first load", async () => {
+	it("shows Loading people… on the first load", async () => {
 		fakeMeIs(verifiedAda);
 		fakeUsers(async () => {
 			await delay(100);
 			return page([bob]);
 		});
 
-		await renderAt("/chats?q=bo");
+		await renderAt("/chats");
 
-		expect(await screen.findByText("Searching…")).toBeTruthy();
+		expect(await screen.findByText("Loading people…")).toBeTruthy();
 		expect(await screen.findByText("@bob")).toBeTruthy();
-		expect(screen.queryByText("Searching…")).toBeNull();
-	});
-
-	it("says when there are more than one page", async () => {
-		fakeMeIs(verifiedAda);
-		fakeUsers(() => page([bob], "abc"));
-
-		await renderAt("/chats?q=bo");
-
-		expect(
-			await screen.findByText("Keep typing to narrow the list."),
-		).toBeTruthy();
+		expect(screen.queryByText("Loading people…")).toBeNull();
 	});
 
 	it("422: shows the API's message under the field", async () => {
@@ -119,7 +121,7 @@ describe("search on /chats", () => {
 		],
 		[500, "Server Error", "Server Error"],
 	])(
-		"%i: shows an alert and keeps the text",
+		"%i on page 1: shows an alert and keeps the text",
 		async (status, message, shown) => {
 			fakeMeIs(verifiedAda);
 			fakeUsers(() => HttpResponse.json({ message }, { status }));
@@ -129,6 +131,7 @@ describe("search on /chats", () => {
 			expect((await screen.findByRole("alert")).textContent).toBe(shown);
 			expect((await field()).value).toBe("bo");
 			expect(screen.queryByRole("list")).toBeNull();
+			expect(screen.queryByRole("button", { name: "Load more" })).toBeNull();
 		},
 	);
 
@@ -136,7 +139,7 @@ describe("search on /chats", () => {
 		fakeMeIs(ada);
 		const searches = fakeUsers(() => page([bob]));
 
-		await renderAt("/chats?q=bo");
+		await renderAt("/chats");
 
 		expect(
 			await screen.findByText("Verify your email to find people."),

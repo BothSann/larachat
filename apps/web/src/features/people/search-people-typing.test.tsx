@@ -20,7 +20,7 @@ import {
 import { API, renderAt } from "#/test/render-at";
 import { server } from "#/test/server";
 
-const HINT = "Search for a username to find people.";
+const EMPTY = "No one else is here yet.";
 
 beforeEach(() => {
 	// getRouter() turns on scroll restoration; jsdom has no scrollTo.
@@ -40,9 +40,9 @@ const field = () => screen.findByLabelText<HTMLInputElement>("Find people");
 describe("typing in the search field", () => {
 	it("waits for a 300 ms pause, then searches once for the last text", async () => {
 		fakeMeIs(verifiedAda);
-		const searches = fakeUsers(() => page([bob]));
+		const searches = fakeUsers((search) => page(search ? [bob] : []));
 		const { router } = await renderAt("/chats");
-		await field();
+		expect(await screen.findByText(EMPTY)).toBeTruthy();
 
 		vi.useFakeTimers({ toFake: ["setTimeout", "clearTimeout"] });
 		type("b");
@@ -52,40 +52,42 @@ describe("typing in the search field", () => {
 		type("bob");
 		act(() => void vi.advanceTimersByTime(299));
 		expect(router.state.location.href).toBe("/chats");
-		expect(searches).toEqual([]);
+		expect(searches).toEqual([null]);
 		act(() => void vi.advanceTimersByTime(1));
 		vi.useRealTimers();
 
 		expect(await screen.findByText("@bob")).toBeTruthy();
 		expect(router.state.location.href).toBe("/chats?q=bob");
-		expect(searches).toEqual(["bob"]);
+		expect(searches).toEqual([null, "bob"]);
 	});
 
 	it("cleans the text for the URL but not in the field", async () => {
 		fakeMeIs(verifiedAda);
-		const searches = fakeUsers(() => page([bob]));
+		const searches = fakeUsers((search) => page(search ? [bob] : []));
 		const { router } = await renderAt("/chats");
-		await field();
+		expect(await screen.findByText(EMPTY)).toBeTruthy();
 
 		type("@Bo");
 
 		expect(await screen.findByText("@bob")).toBeTruthy();
 		expect(router.state.location.href).toBe("/chats?q=bo");
 		expect((await field()).value).toBe("@Bo");
-		expect(searches).toEqual(["bo"]);
+		expect(searches).toEqual([null, "bo"]);
 	});
 
 	it("keeps digits as text in the URL", async () => {
 		fakeMeIs(verifiedAda);
 		const searches = fakeUsers(() => page([]));
 		const { router } = await renderAt("/chats");
-		await field();
+		expect(await screen.findByText(EMPTY)).toBeTruthy();
 
 		type("42");
 
-		expect(await screen.findByText("No one found.")).toBeTruthy();
+		expect(
+			await screen.findByText('No usernames start with "42".'),
+		).toBeTruthy();
 		expect(router.state.location.href).toBe("/chats?q=%2242%22");
-		expect(searches).toEqual(["42"]);
+		expect(searches).toEqual([null, "42"]);
 	});
 
 	it("adds no history entry", async () => {
@@ -101,18 +103,18 @@ describe("typing in the search field", () => {
 		expect(router.history.length).toBe(before);
 	});
 
-	it("clearing the field removes q and shows the hint", async () => {
+	it("clearing the field removes q and lists everyone", async () => {
 		fakeMeIs(verifiedAda);
-		const searches = fakeUsers(() => page([bob]));
+		const searches = fakeUsers((search) => page(search ? [bob] : [bobby]));
 		const { router } = await renderAt("/chats?q=bo");
 		expect(await screen.findByText("@bob")).toBeTruthy();
 
 		type("");
 
-		expect(await screen.findByText(HINT)).toBeTruthy();
+		expect(await screen.findByText("@bobby")).toBeTruthy();
 		expect(router.state.location.href).toBe("/chats");
 		expect(screen.queryByText("@bob")).toBeNull();
-		expect(searches).toEqual(["bo"]);
+		expect(searches).toEqual(["bo", null]);
 	});
 
 	it("keeps verified in the URL while typing", async () => {
@@ -144,7 +146,7 @@ describe("typing in the search field", () => {
 		type("bob");
 		await waitFor(() => expect(searches).toEqual(["bo", "bob"]));
 		expect(screen.getByText("@bobby")).toBeTruthy();
-		expect(screen.queryByText("Searching…")).toBeNull();
+		expect(screen.queryByText("Loading people…")).toBeNull();
 
 		expect(await screen.findByRole("alert")).toBeTruthy();
 		expect(screen.queryByText("@bobby")).toBeNull();
@@ -170,7 +172,7 @@ describe("with the real app router", () => {
 
 		expect(await screen.findByRole("alert")).toBeTruthy();
 
-		const state = queryClient.getQueryState(["people", "search", "bo"]);
+		const state = queryClient.getQueryState(["people", "list", "bo"]);
 		expect(state?.fetchStatus).toBe("idle");
 		expect(searches).toHaveLength(1);
 	});

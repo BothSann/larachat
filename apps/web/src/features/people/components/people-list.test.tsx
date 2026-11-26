@@ -3,11 +3,9 @@ import { describe, expect, it } from "vitest";
 import { bob, bobby } from "#/test/people";
 import { PeopleList } from "./people-list";
 
-const MORE = "Keep typing to narrow the list.";
-
 describe("PeopleList", () => {
 	it("shows the name and @username of each person, in order", () => {
-		render(<PeopleList people={[bob, bobby]} hasMore={false} />);
+		render(<PeopleList people={[bob, bobby]} />);
 
 		const rows = screen.getAllByRole("listitem");
 		expect(rows).toHaveLength(2);
@@ -15,17 +13,17 @@ describe("PeopleList", () => {
 		expect(rows[0].textContent).toContain("@bob");
 		expect(rows[1].textContent).toContain("Bobby Tables");
 		expect(rows[1].textContent).toContain("@bobby");
-		expect(screen.queryByText(MORE)).toBeNull();
 	});
 
-	it("says when there are more", () => {
-		render(<PeopleList people={[bob]} hasMore={true} />);
-		expect(screen.getByText(MORE)).toBeTruthy();
+	it("says no one else is here when there is no search", () => {
+		render(<PeopleList people={[]} />);
+		expect(screen.getByText("No one else is here yet.")).toBeTruthy();
+		expect(screen.queryByRole("list")).toBeNull();
 	});
 
-	it("says when no one matches", () => {
-		render(<PeopleList people={[]} hasMore={false} />);
-		expect(screen.getByText("No one found.")).toBeTruthy();
+	it("names the search when no username matches", () => {
+		render(<PeopleList people={[]} q="bo" />);
+		expect(screen.getByText('No usernames start with "bo".')).toBeTruthy();
 		expect(screen.queryByRole("list")).toBeNull();
 	});
 });

@@ -46,6 +46,10 @@ _Avoid_: Pending, inactive
 The email holding the link that turns an Unverified user into a Verified user. A user can ask for it again until they are verified.
 _Avoid_: Welcome email, confirmation email
 
+**People**:
+Every verified user except you, in username order. A search narrows it to users whose username starts with the text typed.
+_Avoid_: Contacts, friends, directory (there is no step to add someone)
+
 ### Online status
 
 **Online**:
