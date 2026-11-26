@@ -44,3 +44,18 @@ export function fakeUsers(
 	);
 	return searches;
 }
+
+// Fakes GET /users. Returns each request's query string, e.g. "search=bo&cursor=c2".
+export function fakeUserRequests(
+	answer: (params: URLSearchParams) => Response | Promise<Response>,
+) {
+	const requests: string[] = [];
+	server.use(
+		http.get(`${API}/users`, ({ request }) => {
+			const params = new URL(request.url).searchParams;
+			requests.push(params.toString());
+			return answer(params);
+		}),
+	);
+	return requests;
+}
