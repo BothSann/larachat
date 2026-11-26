@@ -1,20 +1,23 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "#/components/ui/button";
 import { useLogout } from "#/features/auth/mutations";
 import { meQuery } from "#/features/auth/queries";
 import { chatsSearchSchema } from "#/features/auth/schemas";
+import { SearchPeople } from "#/features/people/components/search-people";
+import { peopleSearchSchema } from "#/features/people/schemas";
 
 export const Route = createFileRoute("/_app/chats")({
-	validateSearch: chatsSearchSchema,
+	validateSearch: chatsSearchSchema.extend(peopleSearchSchema.shape),
 	component: Chats,
 });
 
 function Chats() {
 	const { data: user } = useSuspenseQuery(meQuery);
-	const logout = useLogout();
-	const navigate = useNavigate();
 	const { verified } = Route.useSearch();
+
+	const logout = useLogout();
+	const navigate = Route.useNavigate();
 
 	return (
 		<main className="p-8">
@@ -25,7 +28,13 @@ function Chats() {
 						variant="outline"
 						size="sm"
 						onClick={() =>
-							navigate({ to: "/chats", search: {}, replace: true })
+							navigate({
+								search: (prev) => ({
+									...prev,
+									verified: undefined,
+								}),
+								replace: true,
+							})
 						}
 					>
 						Dismiss
@@ -62,6 +71,12 @@ function Chats() {
 					</p>
 				)}
 			</div>
+
+			{user.email_verified_at ? (
+				<SearchPeople />
+			) : (
+				<p>Verify your email to find people.</p>
+			)}
 		</main>
 	);
 }
