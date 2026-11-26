@@ -19,7 +19,7 @@ Based on the `laravel-api-practices` skill; project differences are marked **Ove
 |---|---|
 | Read OK | 200 |
 | Created | 201 |
-| Already existed (idempotent repeat, existing DM) | 200 |
+| Already existed (idempotent repeat, existing direct conversation) | 200 |
 | Accepted, work queued (emails) | 202 |
 | Done, nothing to return (logout, read, leave, remove) | 204 |
 | Not logged in | 401 |

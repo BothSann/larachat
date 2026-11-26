@@ -39,10 +39,20 @@ Lessons (each API lesson is followed by its web lesson):
 
 | Method | Path | Auth | Does |
 |---|---|---|---|
-| GET | `/api/v1/users?search=` | verified | Username prefix search, min 2 chars, excludes self → 200 cursor list |
+| GET | `/api/v1/users?search=` | verified | Verified users except you, by username → 200 cursor list. `search` is an optional username prefix: missing or empty → everyone; 1 character → 422 |
 | GET | `/api/v1/conversations` | verified | Your chats by `last_message_at` desc, with last message + unread count → 200 cursor list |
-| POST | `/api/v1/conversations/direct` | verified | Body `{ user_id }` → 201 new DM, 200 existing DM, 422 self |
+| POST | `/api/v1/conversations/direct` | verified | Body `{ user_id }` → 201 new direct conversation, 200 existing one, 422 self, 422 unknown or unverified user (same reply for both) |
 | GET | `/api/v1/conversations/{conversation}` | participant | One chat with participants → 200; 403 not a participant |
+
+Lessons:
+1. Search on `/chats` (web). The API is already there (L-14).
+2. `search` becomes optional on `GET /api/v1/users` (API). Today a missing `search` is a 422.
+3. The "People" list on `/chats` with "Load more" (web).
+4. Conversation tables, then `POST /api/v1/conversations/direct` (API).
+5. Clicking a person opens the conversation (web).
+6. Your conversations, `GET /api/v1/conversations` and `GET /api/v1/conversations/{conversation}` (API, then web).
+
+Online status on the People list comes in step 7.
 
 ## 4. Messages
 
@@ -84,7 +94,8 @@ No endpoints.
 
 | Channel | Who may join | Use |
 |---|---|---|
-| `presence-conversation.{id}` | participants | Who is online in this chat; `typing` whispers |
+| `presence-online` | verified users | Who is online, for the People list and inside chats |
+| `presence-conversation.{id}` | participants | `typing` whispers |
 
 ## Data model
 
@@ -121,3 +132,4 @@ Each step is a vertical slice: API lesson(s) → web lesson(s) → both checks g
 
 ## Before the first deploy
 - Restrict `/docs` and `/docs.openapi` (Scribe `laravel.middleware`, or skip the routes outside `local`). Today anyone can read the API map.
+- Check the production database's collation. With `C`, drop L-16 (username prefix index); with anything else, build it.

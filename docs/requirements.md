@@ -27,12 +27,14 @@ Email must be verified before a user can start chats or send messages.
 `@username` rules: 3–30 chars, lowercase letters, numbers, `_`; unique ignoring case.
 
 ### 3.2 Finding people
-- Search users by username prefix (min 2 characters). Result excludes yourself.
-- No friend requests. Anyone can message anyone.
+- `/chats` lists every verified user except yourself under "People", by username, with a search field above it.
+- Search users by username prefix (min 2 characters). Result excludes yourself. Search filters only "People".
+- Choosing a person opens the direct conversation with them, or starts it.
+- No friend requests. Any verified user can message any other verified user.
 
-### 3.3 Direct messages (DMs)
-- Start a DM with any user. If a DM with that user already exists, open it instead (never two DMs for the same pair).
-- You cannot DM yourself.
+### 3.3 Direct conversations
+- Start a direct conversation with any verified user. If one with that user already exists, open it instead (never two for the same pair). An unverified user is refused exactly like a user that does not exist.
+- You cannot start a direct conversation with yourself.
 
 ### 3.4 Group chats
 - Anyone verified can create a group with a name (1–80 chars) and at least one other member.
@@ -48,13 +50,13 @@ Email must be verified before a user can start chats or send messages.
 - Rate limit: 30 messages per minute per user.
 
 ### 3.6 Chat list
-- All your chats, newest activity first.
-- Each row: name (other person for DMs, group name for groups), last message preview, time, unread count (shown as `99+` above 99).
+- On `/chats`, under "Chats", above "People": all your chats, newest activity first. A person can be in both lists.
+- Each row: name (other person for direct conversations, group name for groups), last message preview, time, unread count (shown as `99+` above 99).
 - Opening a chat marks it read.
 - Updates live: new chats, new messages, and unread counts change without refresh.
 
 ### 3.7 Live presence
-- Inside an open chat: see which participants are online right now.
+- Every verified user sees which verified users are online right now, on the "People" list and inside an open chat. Online and offline only: no "away", no "last seen".
 - "X is typing…" shown while someone types; disappears after 3 seconds of silence or when they send.
 
 ## 4. Non-goals for v1 (the "later" list)
@@ -68,7 +70,7 @@ The schema leaves room for edit/delete (`edited_at`, soft deletes) and for token
 | Area | Target |
 |---|---|
 | Scale (v1) | ~1,000 people online at once on one app server + one Reverb server |
-| Scale (later) | ~100,000 online by adding servers, no rewrite |
+| Scale (later) | ~100,000 online by adding servers, no rewrite. Exception: online status. It uses one channel for everyone, so every join and leave goes to every connected user. Chosen for a showcase app; it needs a new design at this size |
 | Delivery | Message visible to other online participants in < 1 s (p95) |
 | API speed | p95 < 200 ms for reads, < 300 ms for sends (excluding network) |
 | History query | Cursor pagination, never `OFFSET`; constant speed regardless of chat length |

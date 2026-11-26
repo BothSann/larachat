@@ -68,7 +68,8 @@ WebSockets drop. On reconnect, or when a tab becomes visible again, the web app 
 |---|---|---|---|
 | `conversation.{id}` | private | user is a participant | `message.sent` |
 | `user.{id}` | private | `$user->id === $id` | `conversation.updated`, `conversation.removed` |
-| `conversation.{id}` | presence | user is a participant; returns `{id, name, username}` | who's online, `typing` whispers |
+| `online` | presence | user is verified; returns `{id, name, username}` | who's online |
+| `conversation.{id}` | presence | user is a participant; returns `{id, name, username}` | `typing` whispers |
 
 Typing is a **whisper** (client event): browser → Reverb → other browsers. Never stored, never hits Laravel. Requires client events enabled on the Reverb app.
 

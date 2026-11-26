@@ -16,6 +16,10 @@ The database is the truth. Reverb is only the fast way to say "something changed
 - On `conversation.updated`: update the chat list entry with `setQueryData`.
 - On reconnect and on tab becoming visible: invalidate the open chat's messages and the chat list.
 
+## Online status
+- Join the `online` presence channel once, in the `_app` layout, for verified users only. Don't join it per page or per row.
+- The list of online user IDs is live state, not server data: never write it into the user list's cache.
+
 ## Typing (whispers)
 - Send `whisper('typing', { userId })` on the presence channel, at most once every 2 s while typing.
 - Hide the indicator after 3 s with no new whisper, or on `message.sent` from that user.
