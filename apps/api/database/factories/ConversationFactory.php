@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Enums\ConversationType;
+use App\Enums\ParticipantRole;
 use App\Models\Conversation;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -52,5 +53,19 @@ final class ConversationFactory extends Factory
             'name' => fake()->words(2, true),
             'direct_key' => null,
         ]);
+    }
+
+    /**
+     * Pivot columns for ->hasAttached(..., relationship: 'participants').
+     * Scribe calls this when it builds example participants.
+     *
+     * @return array<string, mixed>
+     */
+    public function pivotParticipants(): array
+    {
+        return [
+            'role' => ParticipantRole::Member,
+            'joined_at' => now(),
+        ];
     }
 }
