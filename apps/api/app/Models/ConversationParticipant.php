@@ -12,6 +12,13 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 final class ConversationParticipant extends Pivot
 {
     /**
+     * A pivot guesses the singular name, conversation_participant.
+     *
+     * @var string
+     */
+    protected $table = 'conversation_participants';
+
+    /**
      * The table has its own auto-incrementing id.
      *
      * @var bool

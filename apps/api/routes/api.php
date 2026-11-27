@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\V1\Auth\RegisterController;
 use App\Http\Controllers\Api\V1\Auth\ResendVerificationEmailController;
 use App\Http\Controllers\Api\V1\Auth\ResetPasswordController;
 use App\Http\Controllers\Api\V1\Auth\VerifyEmailController;
+use App\Http\Controllers\Api\V1\Conversations\StartDirectConversationController;
 use App\Http\Controllers\Api\V1\MeController;
 use App\Http\Controllers\Api\V1\People\SearchUsersController;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function (): void {
     Route::get('/users', SearchUsersController::class)
         ->middleware('throttle:user-search')
         ->name('users.search');
+
+    Route::post('/conversations/direct', StartDirectConversationController::class)
+        ->name('conversations.direct.store');
 });
 
 Route::post('/auth/register', RegisterController::class)->name('auth.register');

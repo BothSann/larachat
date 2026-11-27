@@ -14,6 +14,9 @@ tags:
     name: Account
     description: 'The logged-in user.'
   -
+    name: Conversations
+    description: 'Direct and group conversations.'
+  -
     name: People
     description: 'Finding other users.'
 components:
@@ -140,19 +143,19 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m8b804ek92fh221pj1jk0rmh
+                    id: 01m8c7drpgdkmbhaf88j9g1ev2
                     name: 'Mrs. Justina Gaylord'
                     username: deltvi9__k
                     email: theo.hauck@example.com
-                    email_verified_at: '2026-11-26T06:17:01.000000Z'
-                    created_at: '2026-11-26T06:17:01.000000Z'
+                    email_verified_at: '2026-11-26T15:26:14.000000Z'
+                    created_at: '2026-11-26T15:26:14.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: string
-                        example: 01m8b804ek92fh221pj1jk0rmh
+                        example: 01m8c7drpgdkmbhaf88j9g1ev2
                         description: ULID.
                       name:
                         type: string
@@ -168,12 +171,12 @@ paths:
                         description: 'Email address, unique.'
                       email_verified_at:
                         type: string
-                        example: '2026-11-26T06:17:01.000000Z'
+                        example: '2026-11-26T15:26:14.000000Z'
                         description: 'ISO 8601 UTC. Null until the email is verified.'
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-26T06:17:01.000000Z'
+                        example: '2026-11-26T15:26:14.000000Z'
                         description: 'ISO 8601 UTC.'
                     required:
                       - id
@@ -269,19 +272,19 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m8b804eqemn12zjvq2y1wayr
+                    id: 01m8c7drpnd1zq2teakqw18gsc
                     name: 'Mrs. Justina Gaylord'
                     username: _folydlym
                     email: carey67@example.com
-                    email_verified_at: '2026-11-26T06:17:01.000000Z'
-                    created_at: '2026-11-26T06:17:01.000000Z'
+                    email_verified_at: '2026-11-26T15:26:14.000000Z'
+                    created_at: '2026-11-26T15:26:14.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: string
-                        example: 01m8b804eqemn12zjvq2y1wayr
+                        example: 01m8c7drpnd1zq2teakqw18gsc
                         description: ULID.
                       name:
                         type: string
@@ -297,12 +300,12 @@ paths:
                         description: 'Email address, unique.'
                       email_verified_at:
                         type: string
-                        example: '2026-11-26T06:17:01.000000Z'
+                        example: '2026-11-26T15:26:14.000000Z'
                         description: 'ISO 8601 UTC. Null until the email is verified.'
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-26T06:17:01.000000Z'
+                        example: '2026-11-26T15:26:14.000000Z'
                         description: 'ISO 8601 UTC.'
                     required:
                       - id
@@ -379,7 +382,7 @@ paths:
                 remember:
                   type: boolean
                   description: ''
-                  example: true
+                  example: false
               required:
                 - email
                 - password
@@ -667,19 +670,19 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m8b804d1s9sy1hg6djg3xj59
+                    id: 01m8c7drkyzrn4e0xtsecgjaka
                     name: 'Morgan Hirthe'
                     username: folydlymqh9m
                     email: sleffler@example.org
-                    email_verified_at: '2026-11-26T06:17:01.000000Z'
-                    created_at: '2026-11-26T06:17:01.000000Z'
+                    email_verified_at: '2026-11-26T15:26:13.000000Z'
+                    created_at: '2026-11-26T15:26:14.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: string
-                        example: 01m8b804d1s9sy1hg6djg3xj59
+                        example: 01m8c7drkyzrn4e0xtsecgjaka
                         description: ULID.
                       name:
                         type: string
@@ -695,12 +698,12 @@ paths:
                         description: 'Email address, unique.'
                       email_verified_at:
                         type: string
-                        example: '2026-11-26T06:17:01.000000Z'
+                        example: '2026-11-26T15:26:13.000000Z'
                         description: 'ISO 8601 UTC. Null until the email is verified.'
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-26T06:17:01.000000Z'
+                        example: '2026-11-26T15:26:14.000000Z'
                         description: 'ISO 8601 UTC.'
                     required:
                       - id
@@ -744,19 +747,19 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m8b804e0sjmwkv7zqcbb8gqg
+                    id: 01m8c7drmq3ekkjxf6tq3kk79w
                     name: 'Ms. Elisabeth Okuneva'
                     username: ka6z34de
                     email: cormier.nick@example.com
-                    email_verified_at: '2026-11-26T06:17:01.000000Z'
-                    created_at: '2026-11-26T06:17:01.000000Z'
+                    email_verified_at: '2026-11-26T15:26:14.000000Z'
+                    created_at: '2026-11-26T15:26:14.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: string
-                        example: 01m8b804e0sjmwkv7zqcbb8gqg
+                        example: 01m8c7drmq3ekkjxf6tq3kk79w
                         description: ULID.
                       name:
                         type: string
@@ -772,12 +775,12 @@ paths:
                         description: 'Email address, unique.'
                       email_verified_at:
                         type: string
-                        example: '2026-11-26T06:17:01.000000Z'
+                        example: '2026-11-26T15:26:14.000000Z'
                         description: 'ISO 8601 UTC. Null until the email is verified.'
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-26T06:17:01.000000Z'
+                        example: '2026-11-26T15:26:14.000000Z'
                         description: 'ISO 8601 UTC.'
                     required:
                       - id
@@ -933,6 +936,269 @@ paths:
                 - current_password
                 - password
                 - password_confirmation
+  /api/v1/conversations/direct:
+    post:
+      summary: 'Start a direct conversation'
+      operationId: startADirectConversation
+      description: 'Start a direct conversation with another verified user, or get the one you already have. Either of you asking gets the same conversation.'
+      parameters:
+        -
+          in: header
+          name: X-XSRF-TOKEN
+          description: ''
+          example: '{XSRF_TOKEN}'
+          schema:
+            type: string
+      responses:
+        200:
+          description: 'You already had one with this user'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 01m8c7drp6b8pxjfcsdbzgvz8m
+                    type: direct
+                    name: null
+                    last_message_at: null
+                    created_at: '2026-11-26T15:26:14.000000Z'
+                    participants:
+                      -
+                        id: 01m8c7drp7h6kah9haqqnvepns
+                        name: 'Esperanza Kreiger DDS'
+                        username: 8bwebsutl7h
+                        role: member
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: 01m8c7drp6b8pxjfcsdbzgvz8m
+                        description: ULID.
+                      type:
+                        type: string
+                        example: direct
+                        description: 'direct or group.'
+                        enum:
+                          - direct
+                          - group
+                      name:
+                        type: string
+                        example: null
+                        description: 'Group name. null for a direct conversation.'
+                        nullable: true
+                      last_message_at:
+                        type: string
+                        example: null
+                        description: 'When the last message was sent, ISO-8601 UTC. null before the first message.'
+                        nullable: true
+                      created_at:
+                        type: string
+                        example: '2026-11-26T15:26:14.000000Z'
+                        description: 'ISO-8601 UTC.'
+                      participants:
+                        type: array
+                        example:
+                          -
+                            id: 01m8c7drp7h6kah9haqqnvepns
+                            name: 'Esperanza Kreiger DDS'
+                            username: 8bwebsutl7h
+                            role: member
+                        description: 'Everyone in the conversation, you included.'
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: 01m8c7drp7h6kah9haqqnvepns
+                            name:
+                              type: string
+                              example: 'Esperanza Kreiger DDS'
+                            username:
+                              type: string
+                              example: 8bwebsutl7h
+                            role:
+                              type: string
+                              example: member
+                    required:
+                      - id
+                      - type
+                      - name
+                      - last_message_at
+                      - created_at
+                      - participants
+        201:
+          description: 'New conversation'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 01m8c7drng0gee75ta5wqxwbm2
+                    type: direct
+                    name: null
+                    last_message_at: null
+                    created_at: '2026-11-26T15:26:14.000000Z'
+                    participants:
+                      -
+                        id: 01m8c7drnp1f2r3zsfzjgn9zxw
+                        name: 'Emanuel Emmerich'
+                        username: t9nosrmj
+                        role: member
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: 01m8c7drng0gee75ta5wqxwbm2
+                        description: ULID.
+                      type:
+                        type: string
+                        example: direct
+                        description: 'direct or group.'
+                        enum:
+                          - direct
+                          - group
+                      name:
+                        type: string
+                        example: null
+                        description: 'Group name. null for a direct conversation.'
+                        nullable: true
+                      last_message_at:
+                        type: string
+                        example: null
+                        description: 'When the last message was sent, ISO-8601 UTC. null before the first message.'
+                        nullable: true
+                      created_at:
+                        type: string
+                        example: '2026-11-26T15:26:14.000000Z'
+                        description: 'ISO-8601 UTC.'
+                      participants:
+                        type: array
+                        example:
+                          -
+                            id: 01m8c7drnp1f2r3zsfzjgn9zxw
+                            name: 'Emanuel Emmerich'
+                            username: t9nosrmj
+                            role: member
+                        description: 'Everyone in the conversation, you included.'
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: 01m8c7drnp1f2r3zsfzjgn9zxw
+                            name:
+                              type: string
+                              example: 'Emanuel Emmerich'
+                            username:
+                              type: string
+                              example: t9nosrmj
+                            role:
+                              type: string
+                              example: member
+                    required:
+                      - id
+                      - type
+                      - name
+                      - last_message_at
+                      - created_at
+                      - participants
+        401:
+          description: 'Not logged in'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+        403:
+          description: 'Email not verified'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Your email address is not verified.'
+                  code: email_not_verified
+                properties:
+                  message:
+                    type: string
+                    example: 'Your email address is not verified.'
+                  code:
+                    type: string
+                    example: email_not_verified
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  -
+                    description: 'user_id is you, missing, or not a ULID'
+                    type: object
+                    example:
+                      message: 'You cannot start a conversation with yourself.'
+                      errors:
+                        user_id:
+                          - 'You cannot start a conversation with yourself.'
+                    properties:
+                      message:
+                        type: string
+                        example: 'You cannot start a conversation with yourself.'
+                      errors:
+                        type: object
+                        properties:
+                          user_id:
+                            type: array
+                            example:
+                              - 'You cannot start a conversation with yourself.'
+                            items:
+                              type: string
+                  -
+                    description: 'No verified user has this id'
+                    type: object
+                    example:
+                      message: 'The selected user is invalid.'
+                      errors:
+                        user_id:
+                          - 'The selected user is invalid.'
+                    properties:
+                      message:
+                        type: string
+                        example: 'The selected user is invalid.'
+                      errors:
+                        type: object
+                        properties:
+                          user_id:
+                            type: array
+                            example:
+                              - 'The selected user is invalid.'
+                            items:
+                              type: string
+      tags:
+        - Conversations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                  description: 'ULID of the other user. Must be verified, and not you.'
+                  example: 01kb0m7v4qg5r8n3d2w6y9x1ze
+              required:
+                - user_id
   /api/v1/users:
     get:
       summary: 'Search users'
@@ -986,11 +1252,11 @@ paths:
                 example:
                   data:
                     -
-                      id: 01m8b804eb4aq6apkckjhaddxd
+                      id: 01m8c7drn2mc69hs6sbqwcyta5
                       name: 'Ms. Elisabeth Okuneva'
                       username: i9__kfao_f
                     -
-                      id: 01m8b804edqjszbh0w2e2j4xkz
+                      id: 01m8c7drn4zjay96h4aanactbv
                       name: 'Mr. Oswald Koch'
                       username: o_75_mdi6
                   links:
@@ -1008,11 +1274,11 @@ paths:
                     type: array
                     example:
                       -
-                        id: 01m8b804eb4aq6apkckjhaddxd
+                        id: 01m8c7drn2mc69hs6sbqwcyta5
                         name: 'Ms. Elisabeth Okuneva'
                         username: i9__kfao_f
                       -
-                        id: 01m8b804edqjszbh0w2e2j4xkz
+                        id: 01m8c7drn4zjay96h4aanactbv
                         name: 'Mr. Oswald Koch'
                         username: o_75_mdi6
                     items:
@@ -1020,7 +1286,7 @@ paths:
                       properties:
                         id:
                           type: string
-                          example: 01m8b804eb4aq6apkckjhaddxd
+                          example: 01m8c7drn2mc69hs6sbqwcyta5
                           description: ULID.
                         name:
                           type: string
