@@ -199,6 +199,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/conversations/direct": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Start a direct conversation
+         * @description Start a direct conversation with another verified user, or get the one you already have. Either of you asking gets the same conversation.
+         */
+        post: operations["startADirectConversation"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/users": {
         parameters: {
             query?: never;
@@ -370,7 +390,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m8b804ek92fh221pj1jk0rmh
+                             * @example 01m8c7drpgdkmbhaf88j9g1ev2
                              */
                             id: string;
                             /**
@@ -390,12 +410,12 @@ export interface operations {
                             email: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-26T06:17:01.000000Z
+                             * @example 2026-11-26T15:26:14.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-26T06:17:01.000000Z
+                             * @example 2026-11-26T15:26:14.000000Z
                              */
                             created_at: string;
                         };
@@ -453,7 +473,7 @@ export interface operations {
                     email: string;
                     /** @example |]|{+- */
                     password: string;
-                    /** @example true */
+                    /** @example false */
                     remember?: boolean;
                 };
             };
@@ -469,7 +489,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m8b804eqemn12zjvq2y1wayr
+                             * @example 01m8c7drpnd1zq2teakqw18gsc
                              */
                             id: string;
                             /**
@@ -489,12 +509,12 @@ export interface operations {
                             email: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-26T06:17:01.000000Z
+                             * @example 2026-11-26T15:26:14.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-26T06:17:01.000000Z
+                             * @example 2026-11-26T15:26:14.000000Z
                              */
                             created_at: string;
                         };
@@ -804,7 +824,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m8b804d1s9sy1hg6djg3xj59
+                             * @example 01m8c7drkyzrn4e0xtsecgjaka
                              */
                             id: string;
                             /**
@@ -824,12 +844,12 @@ export interface operations {
                             email: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-26T06:17:01.000000Z
+                             * @example 2026-11-26T15:26:13.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-26T06:17:01.000000Z
+                             * @example 2026-11-26T15:26:14.000000Z
                              */
                             created_at: string;
                         };
@@ -887,7 +907,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m8b804e0sjmwkv7zqcbb8gqg
+                             * @example 01m8c7drmq3ekkjxf6tq3kk79w
                              */
                             id: string;
                             /**
@@ -907,12 +927,12 @@ export interface operations {
                             email: string;
                             /**
                              * @description ISO 8601 UTC. Null until the email is verified.
-                             * @example 2026-11-26T06:17:01.000000Z
+                             * @example 2026-11-26T15:26:14.000000Z
                              */
                             email_verified_at: string | null;
                             /**
                              * @description ISO 8601 UTC.
-                             * @example 2026-11-26T06:17:01.000000Z
+                             * @example 2026-11-26T15:26:14.000000Z
                              */
                             created_at: string;
                         };
@@ -1040,6 +1060,204 @@ export interface operations {
             };
         };
     };
+    startADirectConversation: {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @example {XSRF_TOKEN} */
+                "X-XSRF-TOKEN"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /**
+                     * @description ULID of the other user. Must be verified, and not you.
+                     * @example 01kb0m7v4qg5r8n3d2w6y9x1ze
+                     */
+                    user_id: string;
+                };
+            };
+        };
+        responses: {
+            /** @description You already had one with this user */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data?: {
+                            /**
+                             * @description ULID.
+                             * @example 01m8c7drp6b8pxjfcsdbzgvz8m
+                             */
+                            id: string;
+                            /**
+                             * @description direct or group.
+                             * @example direct
+                             * @enum {string}
+                             */
+                            type: "direct" | "group";
+                            /**
+                             * @description Group name. null for a direct conversation.
+                             * @example null
+                             */
+                            name: string | null;
+                            /**
+                             * @description When the last message was sent, ISO-8601 UTC. null before the first message.
+                             * @example null
+                             */
+                            last_message_at: string | null;
+                            /**
+                             * @description ISO-8601 UTC.
+                             * @example 2026-11-26T15:26:14.000000Z
+                             */
+                            created_at: string;
+                            /**
+                             * @description Everyone in the conversation, you included.
+                             * @example [
+                             *       {
+                             *         "id": "01m8c7drp7h6kah9haqqnvepns",
+                             *         "name": "Esperanza Kreiger DDS",
+                             *         "username": "8bwebsutl7h",
+                             *         "role": "member"
+                             *       }
+                             *     ]
+                             */
+                            participants: {
+                                /** @example 01m8c7drp7h6kah9haqqnvepns */
+                                id?: string;
+                                /** @example Esperanza Kreiger DDS */
+                                name?: string;
+                                /** @example 8bwebsutl7h */
+                                username?: string;
+                                /** @example member */
+                                role?: string;
+                            }[];
+                        };
+                    };
+                };
+            };
+            /** @description New conversation */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data?: {
+                            /**
+                             * @description ULID.
+                             * @example 01m8c7drng0gee75ta5wqxwbm2
+                             */
+                            id: string;
+                            /**
+                             * @description direct or group.
+                             * @example direct
+                             * @enum {string}
+                             */
+                            type: "direct" | "group";
+                            /**
+                             * @description Group name. null for a direct conversation.
+                             * @example null
+                             */
+                            name: string | null;
+                            /**
+                             * @description When the last message was sent, ISO-8601 UTC. null before the first message.
+                             * @example null
+                             */
+                            last_message_at: string | null;
+                            /**
+                             * @description ISO-8601 UTC.
+                             * @example 2026-11-26T15:26:14.000000Z
+                             */
+                            created_at: string;
+                            /**
+                             * @description Everyone in the conversation, you included.
+                             * @example [
+                             *       {
+                             *         "id": "01m8c7drnp1f2r3zsfzjgn9zxw",
+                             *         "name": "Emanuel Emmerich",
+                             *         "username": "t9nosrmj",
+                             *         "role": "member"
+                             *       }
+                             *     ]
+                             */
+                            participants: {
+                                /** @example 01m8c7drnp1f2r3zsfzjgn9zxw */
+                                id?: string;
+                                /** @example Emanuel Emmerich */
+                                name?: string;
+                                /** @example t9nosrmj */
+                                username?: string;
+                                /** @example member */
+                                role?: string;
+                            }[];
+                        };
+                    };
+                };
+            };
+            /** @description Not logged in */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @example Unauthenticated. */
+                        message?: string;
+                    };
+                };
+            };
+            /** @description Email not verified */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @example Your email address is not verified. */
+                        message?: string;
+                        /** @example email_not_verified */
+                        code?: string;
+                    };
+                };
+            };
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @example You cannot start a conversation with yourself. */
+                        message?: string;
+                        errors?: {
+                            /**
+                             * @example [
+                             *       "You cannot start a conversation with yourself."
+                             *     ]
+                             */
+                            user_id?: string[];
+                        };
+                    } | {
+                        /** @example The selected user is invalid. */
+                        message?: string;
+                        errors?: {
+                            /**
+                             * @example [
+                             *       "The selected user is invalid."
+                             *     ]
+                             */
+                            user_id?: string[];
+                        };
+                    };
+                };
+            };
+        };
+    };
     searchUsers: {
         parameters: {
             query?: {
@@ -1078,12 +1296,12 @@ export interface operations {
                         /**
                          * @example [
                          *       {
-                         *         "id": "01m8b804eb4aq6apkckjhaddxd",
+                         *         "id": "01m8c7drn2mc69hs6sbqwcyta5",
                          *         "name": "Ms. Elisabeth Okuneva",
                          *         "username": "i9__kfao_f"
                          *       },
                          *       {
-                         *         "id": "01m8b804edqjszbh0w2e2j4xkz",
+                         *         "id": "01m8c7drn4zjay96h4aanactbv",
                          *         "name": "Mr. Oswald Koch",
                          *         "username": "o_75_mdi6"
                          *       }
@@ -1092,7 +1310,7 @@ export interface operations {
                         data?: {
                             /**
                              * @description ULID.
-                             * @example 01m8b804eb4aq6apkckjhaddxd
+                             * @example 01m8c7drn2mc69hs6sbqwcyta5
                              */
                             id: string;
                             /**
